@@ -1,14 +1,20 @@
 import { groq } from "next-sanity";
 
-// Deep-dive fetch for PhotoView (Technical EXIF + Palette)
+/**
+ * Deep-dive fetch for PhotoView (Technical EXIF + Palette)
+ * Targeted by Slug for individual archival analysis.
+ */
 export const INDIVIDUAL_PHOTO_QUERY = groq`*[_type == "photo" && slug.current == $slug][0] {
   ...,
   "slug": slug.current,
-  "metadata": image.asset->metadata {
-    exif,
-    palette,
-    dimensions,
-    lqip
+  "mainImage": image.asset->{
+    ...,
+    metadata {
+      exif,
+      palette,
+      dimensions,
+      lqip
+    }
   },
   context {
     narrative,
@@ -25,39 +31,41 @@ export const INDIVIDUAL_PHOTO_QUERY = groq`*[_type == "photo" && slug.current ==
   }
 }`;
 
-// Filtered for the Public Archive
+/**
+ * Filtered for the Public Archive
+ * Optimized for speed: Only basic image data and metadata required for cards.
+ */
 export const PUBLIC_PHOTOS_QUERY = groq`*[_type == "photo" && context.isPublic == true && context.isSensitive != true] | order(associations.capturedDate desc) {
   _id,
   image,
   "slug": slug.current,
+  "lqip": image.asset->metadata.lqip,
   context {
-    narrative,
     caption,
     intent
   },
   associations {
     capturedDate,
     location->{ name, city },
-    people[]->{ name }
+    "peopleCount": count(people)
   }
 }`;
 
-// The "Engine Control" fetch - includes everything
-export const ADMIN_ALL_PHOTOS_QUERY = groq`*[_type == "photo"] | order(associations.capturedDate desc) {
+/**
+ * The "Engine Control" fetch - includes administrative flags
+ */
+export const ADMIN_ALL_PHOTOS_QUERY = groq`*[_type == "photo"] | order(_createdAt desc) {
     _id,
     _type,
     image,
     "slug": slug.current,
     context {
       caption,
-      narrative,
-      intent,
       isPublic,
       isSensitive
     },
     associations {
       capturedDate,
-      location->{ name, city },
-      people[]->{ name }
+      location->{ name, city }
     }
   }`;
