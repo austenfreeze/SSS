@@ -1,57 +1,74 @@
-// app/(admin)/dashboard/page.tsx
-import { client } from "@/src/sanity/client";
-import { ADMIN_ALL_PHOTOS_QUERY } from "@/src/sanity/queries";
-import MediaCard from "@/components/MediaCard";
-import Link from "next/link";
+import { client } from "../../../src/sanity/client";
 
 export default async function AdminDashboard() {
-  const allAssets = await client.fetch(ADMIN_ALL_PHOTOS_QUERY, {}, { next: { revalidate: 0 } });
-  
-  const totalAssets = allAssets.length;
-  const privateAssets = allAssets.filter((a: any) => !a.context?.isPublic).length;
-  const publicAssets = totalAssets - privateAssets;
+  // Fetching real data with our new narrative field
+  const photos = await client.fetch(`
+    *[_type == "photo"] | order(_createdAt desc) [0...6] {
+      _id,
+      title,
+      photoCaption {
+        narrative,
+        intent
+      },
+      "imageUrl": image.asset->url
+    }
+  `);
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-10">
-      <header className="flex flex-col md:flex-row justify-between items-end gap-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full md:w-auto flex-grow">
-          <div className="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
-            <p className="text-[10px] font-mono text-zinc-500 uppercase">Total Assets</p>
-            <p className="text-2xl font-bold">{totalAssets}</p>
-          </div>
-          <div className="bg-zinc-900 p-4 rounded-xl border border-zinc-800 text-red-500">
-            <p className="text-[10px] font-mono text-zinc-500 uppercase">Private</p>
-            <p className="text-2xl font-bold">{privateAssets}</p>
-          </div>
-          <div className="bg-zinc-900 p-4 rounded-xl border border-zinc-800 text-green-500">
-            <p className="text-[10px] font-mono text-zinc-500 uppercase">Public</p>
-            <p className="text-2xl font-bold">{publicAssets}</p>
-          </div>
-        </div>
-
-        <div className="flex gap-3">
-          <Link 
-            href="/studio" 
-            target="_blank"
-            className="px-6 py-3 bg-white text-black text-xs font-black uppercase rounded-lg hover:bg-zinc-200 transition-all"
-          >
-            Open Studio
-          </Link>
-        </div>
+    <div className="p-8 lg:p-12 max-w-6xl">
+      <header className="mb-16">
+        <p className="text-zinc-600 text-[10px] uppercase tracking-[0.4em] mb-2">
+          System Update: {new Date().toLocaleDateString()}
+        </p>
+        <h2 className="text-4xl font-light tracking-tighter uppercase italic">
+          Adaptive Archival Analysis
+        </h2>
       </header>
 
-      <section>
-        <div className="flex justify-between items-center mb-8 border-b border-zinc-800 pb-4">
-          <h2 className="text-2xl font-black italic tracking-tighter uppercase">Recent Uploads</h2>
-          <span className="text-[10px] font-mono text-zinc-600 uppercase">Engine v3.0 // Active Stream</span>
-        </div>
+      <div className="grid grid-cols-1 gap-16">
+        {photos.length > 0 ? (
+          photos.map((photo: any) => (
+            <div key={photo._id} className="group grid grid-cols-1 md:grid-cols-3 gap-8 border-b border-zinc-900 pb-16">
+              {/* Media Preview */}
+              <div className="aspect-square bg-zinc-900 border border-zinc-800 overflow-hidden relative">
+                {photo.imageUrl ? (
+                   <img 
+                    src={photo.imageUrl} 
+                    alt={photo.title} 
+                    className="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-500" 
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-full text-zinc-800 text-[10px] uppercase">No Media</div>
+                )}
+              </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {allAssets.map((photo: any) => (
-            <MediaCard key={photo._id} photo={photo} isAdmin={true} />
-          ))}
-        </div>
-      </section>
+              {/* Data & Narrative */}
+              <div className="md:col-span-2 space-y-4">
+                <div className="flex items-center gap-4">
+                  <h3 className="text-xl font-bold tracking-tight">{photo.title || "Untitled Entry"}</h3>
+                  <span className="text-[9px] px-2 py-0.5 border border-zinc-800 text-zinc-500 uppercase tracking-widest">
+                    {photo.photoCaption?.intent || "General"}
+                  </span>
+                </div>
+                
+                <p className="text-zinc-400 text-sm leading-relaxed font-sans max-w-2xl">
+                  {photo.photoCaption?.narrative || "No narrative established for this archival point."}
+                </p>
+
+                <div className="pt-4">
+                  <button className="text-[10px] text-white underline underline-offset-4 hover:text-zinc-400 transition-colors uppercase tracking-widest">
+                    Edit Document
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="py-20 border border-dashed border-zinc-900 text-center text-zinc-600 italic">
+            Archive is currently empty.
+          </div>
+        )}
+      </div>
     </div>
   );
 }

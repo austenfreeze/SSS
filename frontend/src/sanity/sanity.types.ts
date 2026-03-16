@@ -12,278 +12,279 @@
  * ---------------------------------------------------------------------------------
  */
 
-export declare const internalGroqTypeReferenceTo: unique symbol
+export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
 export type PhotoCaption = {
-  _type: 'photoCaption'
-  caption?: string
-  intent?: 'personal' | 'editorial' | 'portfolio' | 'social' | 'work'
-  isPublic?: boolean
-  isSensitive?: boolean
-  copyright?: string
-}
+  _type: "photoCaption";
+  caption?: string;
+  narrative?: string;
+  intent?: "personal" | "editorial" | "portfolio" | "social" | "work";
+  isPublic?: boolean;
+  isSensitive?: boolean;
+  copyright?: string;
+};
 
 export type SanityImageAssetReference = {
-  _ref: string
-  _type: 'reference'
-  _weak?: boolean
-  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-}
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+};
 
 export type PhotoReference = {
-  _ref: string
-  _type: 'reference'
-  _weak?: boolean
-  [internalGroqTypeReferenceTo]?: 'photo'
-}
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "photo";
+};
 
 export type Gallery = {
-  _id: string
-  _type: 'gallery'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title?: string
-  slug?: Slug
-  description?: string
+  _id: string;
+  _type: "gallery";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  description?: string;
   mainImage?: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    _type: 'image'
-  }
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
   photos?: Array<
     {
-      _key: string
+      _key: string;
     } & PhotoReference
-  >
-}
+  >;
+};
 
 export type SanityImageCrop = {
-  _type: 'sanity.imageCrop'
-  top?: number
-  bottom?: number
-  left?: number
-  right?: number
-}
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
 
 export type SanityImageHotspot = {
-  _type: 'sanity.imageHotspot'
-  x?: number
-  y?: number
-  height?: number
-  width?: number
-}
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
 
 export type Slug = {
-  _type: 'slug'
-  current?: string
-  source?: string
-}
+  _type: "slug";
+  current?: string;
+  source?: string;
+};
 
 export type Tag = {
-  _id: string
-  _type: 'tag'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title?: string
-  slug?: Slug
-  description?: string
-}
+  _id: string;
+  _type: "tag";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  description?: string;
+};
 
 export type Person = {
-  _id: string
-  _type: 'person'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  name?: string
-  nicknames?: Array<string>
-  slug?: Slug
-  roles?: Array<string>
-  portrait?: PhotoReference
-  bio?: string
-  appearancesNote?: string
-}
+  _id: string;
+  _type: "person";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  nicknames?: Array<string>;
+  slug?: Slug;
+  roles?: Array<string>;
+  portrait?: PhotoReference;
+  bio?: string;
+  appearancesNote?: string;
+};
 
 export type PersonReference = {
-  _ref: string
-  _type: 'reference'
-  _weak?: boolean
-  [internalGroqTypeReferenceTo]?: 'person'
-}
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "person";
+};
 
 export type LocationReference = {
-  _ref: string
-  _type: 'reference'
-  _weak?: boolean
-  [internalGroqTypeReferenceTo]?: 'location'
-}
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "location";
+};
 
 export type TagReference = {
-  _ref: string
-  _type: 'reference'
-  _weak?: boolean
-  [internalGroqTypeReferenceTo]?: 'tag'
-}
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "tag";
+};
 
 export type GalleryReference = {
-  _ref: string
-  _type: 'reference'
-  _weak?: boolean
-  [internalGroqTypeReferenceTo]?: 'gallery'
-}
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "gallery";
+};
 
 export type Photo = {
-  _id: string
-  _type: 'photo'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
+  _id: string;
+  _type: "photo";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
   image?: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    _type: 'image'
-  }
-  slug?: Slug
-  context?: PhotoCaption
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  slug?: Slug;
+  context?: PhotoCaption;
   associations?: {
-    capturedDate?: string
+    capturedDate?: string;
     people?: Array<
       {
-        _key: string
+        _key: string;
       } & PersonReference
-    >
-    location?: LocationReference
+    >;
+    location?: LocationReference;
     tags?: Array<
       {
-        _key: string
+        _key: string;
       } & TagReference
-    >
+    >;
     galleries?: Array<
       {
-        _key: string
+        _key: string;
       } & GalleryReference
-    >
-  }
+    >;
+  };
   referencedIn?: Array<
     {
-      _key: string
+      _key: string;
     } & GalleryReference
-  >
-}
+  >;
+};
 
 export type Location = {
-  _id: string
-  _type: 'location'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  name?: string
-  city?: string
-}
+  _id: string;
+  _type: "location";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  city?: string;
+};
 
 export type SanityImagePaletteSwatch = {
-  _type: 'sanity.imagePaletteSwatch'
-  background?: string
-  foreground?: string
-  population?: number
-  title?: string
-}
+  _type: "sanity.imagePaletteSwatch";
+  background?: string;
+  foreground?: string;
+  population?: number;
+  title?: string;
+};
 
 export type SanityImagePalette = {
-  _type: 'sanity.imagePalette'
-  darkMuted?: SanityImagePaletteSwatch
-  lightVibrant?: SanityImagePaletteSwatch
-  darkVibrant?: SanityImagePaletteSwatch
-  vibrant?: SanityImagePaletteSwatch
-  dominant?: SanityImagePaletteSwatch
-  lightMuted?: SanityImagePaletteSwatch
-  muted?: SanityImagePaletteSwatch
-}
+  _type: "sanity.imagePalette";
+  darkMuted?: SanityImagePaletteSwatch;
+  lightVibrant?: SanityImagePaletteSwatch;
+  darkVibrant?: SanityImagePaletteSwatch;
+  vibrant?: SanityImagePaletteSwatch;
+  dominant?: SanityImagePaletteSwatch;
+  lightMuted?: SanityImagePaletteSwatch;
+  muted?: SanityImagePaletteSwatch;
+};
 
 export type SanityImageDimensions = {
-  _type: 'sanity.imageDimensions'
-  height?: number
-  width?: number
-  aspectRatio?: number
-}
+  _type: "sanity.imageDimensions";
+  height?: number;
+  width?: number;
+  aspectRatio?: number;
+};
 
 export type SanityImageMetadata = {
-  _type: 'sanity.imageMetadata'
-  location?: Geopoint
-  dimensions?: SanityImageDimensions
-  palette?: SanityImagePalette
-  lqip?: string
-  blurHash?: string
-  thumbHash?: string
-  hasAlpha?: boolean
-  isOpaque?: boolean
-}
+  _type: "sanity.imageMetadata";
+  location?: Geopoint;
+  dimensions?: SanityImageDimensions;
+  palette?: SanityImagePalette;
+  lqip?: string;
+  blurHash?: string;
+  thumbHash?: string;
+  hasAlpha?: boolean;
+  isOpaque?: boolean;
+};
 
 export type SanityFileAsset = {
-  _id: string
-  _type: 'sanity.fileAsset'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  originalFilename?: string
-  label?: string
-  title?: string
-  description?: string
-  altText?: string
-  sha1hash?: string
-  extension?: string
-  mimeType?: string
-  size?: number
-  assetId?: string
-  uploadId?: string
-  path?: string
-  url?: string
-  source?: SanityAssetSourceData
-}
+  _id: string;
+  _type: "sanity.fileAsset";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  originalFilename?: string;
+  label?: string;
+  title?: string;
+  description?: string;
+  altText?: string;
+  sha1hash?: string;
+  extension?: string;
+  mimeType?: string;
+  size?: number;
+  assetId?: string;
+  uploadId?: string;
+  path?: string;
+  url?: string;
+  source?: SanityAssetSourceData;
+};
 
 export type SanityAssetSourceData = {
-  _type: 'sanity.assetSourceData'
-  name?: string
-  id?: string
-  url?: string
-}
+  _type: "sanity.assetSourceData";
+  name?: string;
+  id?: string;
+  url?: string;
+};
 
 export type SanityImageAsset = {
-  _id: string
-  _type: 'sanity.imageAsset'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  originalFilename?: string
-  label?: string
-  title?: string
-  description?: string
-  altText?: string
-  sha1hash?: string
-  extension?: string
-  mimeType?: string
-  size?: number
-  assetId?: string
-  uploadId?: string
-  path?: string
-  url?: string
-  metadata?: SanityImageMetadata
-  source?: SanityAssetSourceData
-}
+  _id: string;
+  _type: "sanity.imageAsset";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  originalFilename?: string;
+  label?: string;
+  title?: string;
+  description?: string;
+  altText?: string;
+  sha1hash?: string;
+  extension?: string;
+  mimeType?: string;
+  size?: number;
+  assetId?: string;
+  uploadId?: string;
+  path?: string;
+  url?: string;
+  metadata?: SanityImageMetadata;
+  source?: SanityAssetSourceData;
+};
 
 export type Geopoint = {
-  _type: 'geopoint'
-  lat?: number
-  lng?: number
-  alt?: number
-}
+  _type: "geopoint";
+  lat?: number;
+  lng?: number;
+  alt?: number;
+};
 
 export type AllSanitySchemaTypes =
   | PhotoCaption
@@ -308,4 +309,131 @@ export type AllSanitySchemaTypes =
   | SanityFileAsset
   | SanityAssetSourceData
   | SanityImageAsset
-  | Geopoint
+  | Geopoint;
+
+// Source: ../frontend/src/sanity/queries.ts
+// Variable: INDIVIDUAL_PHOTO_QUERY
+// Query: *[_type == "photo" && slug.current == $slug][0] {  ...,  "slug": slug.current,  "metadata": image.asset->metadata {    exif,    palette,    dimensions,    lqip  },  context {    narrative,    caption,    intent,    isPublic,    isSensitive  },  associations {    capturedDate,    location->{ name, city, gps },    tags[]->{ title, "slug": slug.current },    people[]->{ name, "slug": slug.current, image }  }}
+export type INDIVIDUAL_PHOTO_QUERY_RESULT = {
+  _id: string;
+  _type: "photo";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  slug: string | null;
+  context: {
+    narrative: string | null;
+    caption: string | null;
+    intent: "editorial" | "personal" | "portfolio" | "social" | "work" | null;
+    isPublic: boolean | null;
+    isSensitive: boolean | null;
+  } | null;
+  associations: {
+    capturedDate: string | null;
+    location: {
+      name: string | null;
+      city: string | null;
+      gps: null;
+    } | null;
+    tags: Array<{
+      title: string | null;
+      slug: string | null;
+    }> | null;
+    people: Array<{
+      name: string | null;
+      slug: string | null;
+      image: null;
+    }> | null;
+  } | null;
+  referencedIn?: Array<
+    {
+      _key: string;
+    } & GalleryReference
+  >;
+  metadata: {
+    exif: null;
+    palette: SanityImagePalette | null;
+    dimensions: SanityImageDimensions | null;
+    lqip: string | null;
+  } | null;
+} | null;
+
+// Source: ../frontend/src/sanity/queries.ts
+// Variable: PUBLIC_PHOTOS_QUERY
+// Query: *[_type == "photo" && context.isPublic == true && context.isSensitive != true] | order(associations.capturedDate desc) {  _id,  image,  "slug": slug.current,  context {    narrative,    caption,    intent  },  associations {    capturedDate,    location->{ name, city },    people[]->{ name }  }}
+export type PUBLIC_PHOTOS_QUERY_RESULT = Array<{
+  _id: string;
+  image: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  slug: string | null;
+  context: {
+    narrative: string | null;
+    caption: string | null;
+    intent: "editorial" | "personal" | "portfolio" | "social" | "work" | null;
+  } | null;
+  associations: {
+    capturedDate: string | null;
+    location: {
+      name: string | null;
+      city: string | null;
+    } | null;
+    people: Array<{
+      name: string | null;
+    }> | null;
+  } | null;
+}>;
+
+// Source: ../frontend/src/sanity/queries.ts
+// Variable: ADMIN_ALL_PHOTOS_QUERY
+// Query: *[_type == "photo"] | order(associations.capturedDate desc) {    _id,    _type,    image,    "slug": slug.current,    context {      caption,      narrative,      intent,      isPublic,      isSensitive    },    associations {      capturedDate,      location->{ name, city },      people[]->{ name }    }  }
+export type ADMIN_ALL_PHOTOS_QUERY_RESULT = Array<{
+  _id: string;
+  _type: "photo";
+  image: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  slug: string | null;
+  context: {
+    caption: string | null;
+    narrative: string | null;
+    intent: "editorial" | "personal" | "portfolio" | "social" | "work" | null;
+    isPublic: boolean | null;
+    isSensitive: boolean | null;
+  } | null;
+  associations: {
+    capturedDate: string | null;
+    location: {
+      name: string | null;
+      city: string | null;
+    } | null;
+    people: Array<{
+      name: string | null;
+    }> | null;
+  } | null;
+}>;
+
+// Query TypeMap
+import "@sanity/client";
+declare module "@sanity/client" {
+  interface SanityQueries {
+    '*[_type == "photo" && slug.current == $slug][0] {\n  ...,\n  "slug": slug.current,\n  "metadata": image.asset->metadata {\n    exif,\n    palette,\n    dimensions,\n    lqip\n  },\n  context {\n    narrative,\n    caption,\n    intent,\n    isPublic,\n    isSensitive\n  },\n  associations {\n    capturedDate,\n    location->{ name, city, gps },\n    tags[]->{ title, "slug": slug.current },\n    people[]->{ name, "slug": slug.current, image }\n  }\n}': INDIVIDUAL_PHOTO_QUERY_RESULT;
+    '*[_type == "photo" && context.isPublic == true && context.isSensitive != true] | order(associations.capturedDate desc) {\n  _id,\n  image,\n  "slug": slug.current,\n  context {\n    narrative,\n    caption,\n    intent\n  },\n  associations {\n    capturedDate,\n    location->{ name, city },\n    people[]->{ name }\n  }\n}': PUBLIC_PHOTOS_QUERY_RESULT;
+    '*[_type == "photo"] | order(associations.capturedDate desc) {\n    _id,\n    _type,\n    image,\n    "slug": slug.current,\n    context {\n      caption,\n      narrative,\n      intent,\n      isPublic,\n      isSensitive\n    },\n    associations {\n      capturedDate,\n      location->{ name, city },\n      people[]->{ name }\n    }\n  }': ADMIN_ALL_PHOTOS_QUERY_RESULT;
+  }
+}
