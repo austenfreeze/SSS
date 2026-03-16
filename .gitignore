@@ -1,0 +1,19 @@
+# Workspaces
+node_modules/
+.DS_Store
+
+# Frontend
+frontend/.next/
+frontend/out/
+frontend/.env.local
+frontend/.env.production
+
+# Studio
+studio/node_modules/
+studio/dist/
+studio/.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

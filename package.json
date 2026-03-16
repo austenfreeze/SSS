@@ -1,0 +1,25 @@
+{
+  "name": "sss-monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=frontend\" \"npm run dev --workspace=studio\"",
+    "build": "npm run build --workspaces",
+    "install-all": "npm install",
+    "studio:dev": "npm run dev --workspace=studio",
+    "studio:deploy": "npm run deploy --workspace=studio"
+  },
+  "workspaces": [
+    "studio",
+    "frontend"
+  ],
+  "overrides": {
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "styled-components": "^6.3.11"
+  }
+}
