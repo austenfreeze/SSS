@@ -43,14 +43,18 @@ export default async function AdminLayout({
         </nav>
 
         <div className="p-6 border-t border-zinc-800 flex items-center justify-between bg-zinc-950/30">
+          {/* REMOVED afterSignOutUrl to fix Vercel Build Error */}
           <UserButton 
-            afterSignOutUrl="/sign-in" 
-            appearance={{ elements: { avatarBox: "h-8 w-8 border border-zinc-700" } }} 
+            appearance={{ 
+              elements: { 
+                avatarBox: "h-8 w-8 border border-zinc-700 hover:border-white transition-colors" 
+              } 
+            }} 
           />
           <div className="text-right">
             <p className="text-[8px] text-zinc-600 uppercase tracking-tighter">Identity Verified</p>
             <p className="text-[9px] text-zinc-400 truncate max-w-[100px]">
-              {user.username || 'Admin'}
+              {user.username || user.firstName || 'Admin'}
             </p>
           </div>
         </div>
