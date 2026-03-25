@@ -1,4 +1,3 @@
-// schemaTypes/person.ts
 import { defineType, defineField } from 'sanity'
 import { UserIcon } from '@sanity/icons'
 
@@ -10,81 +9,43 @@ export default defineType({
   fields: [
     defineField({ 
       name: 'name', 
-      title: 'Full Name', 
       type: 'string', 
       validation: (Rule) => Rule.required() 
     }),
     defineField({
-      name: 'nicknames',
-      title: 'Nicknames',
+      name: 'slug',
+      type: 'slug',
+      options: { source: 'name' },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'image',
+      type: 'image',
+      options: { hotspot: true }
+    }),
+    defineField({
+      name: 'roles',
       type: 'array',
       of: [{ type: 'string' }],
       options: { layout: 'tags' }
     }),
     defineField({ 
-      name: 'slug', 
-      type: 'slug', 
-      options: {
-        source: 'name',
-        maxLength: 96,
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({ 
-      name: 'roles', 
-      title: 'Relationships / Roles', 
-      type: 'array',
-      of: [{ type: 'string' }],
-      options: {
-        layout: 'tags',
-        list: [
-          { title: 'Family', value: 'family' },
-          { title: 'Friend', value: 'friend' },
-          { title: 'Collaborator', value: 'collaborator' }
-        ]
-      }
-    }),
-
-    /* REFINED: Instead of a raw upload, we reference a 'photo' document.
-       This links the person to an existing archival record.
-    */
-    defineField({ 
-      name: 'portrait', 
-      title: 'Featured Portrait',
-      description: 'Select a photo already in the archive to represent this person.',
-      type: 'reference', 
-      to: [{ type: 'photo' }] 
-    }),
-
-    defineField({ name: 'bio', type: 'text', rows: 2 }),
-
-    defineField({
-      name: 'appearancesNote',
-      title: 'Vault Appearances',
-      type: 'string',
-      readOnly: true,
-      initialValue: '🔗 Bi-directional linking active.'
+      name: 'bio', 
+      type: 'text', 
+      rows: 2 
     }),
   ],
-// schemaTypes/person.ts
-
   preview: {
     select: {
       title: 'name',
-      roles: 'roles', // Select the entire array of strings
-      media: 'portrait.image' // Follows the reference to grab the photo's image
+      subtitle: 'roles',
+      media: 'image'
     },
-    prepare({ title, roles, media }) {
-      // Check if roles exists and has items
-      const hasRoles = roles && roles.length > 0;
-      
+    prepare({ title, subtitle, media }) {
       return {
-        title,
-        // Join the array into a clean string for the subtitle
-        subtitle: hasRoles 
-          ? roles.join(', ').toUpperCase() 
-          : 'NO ROLE ASSIGNED',
-        media
+        title: title || 'Unnamed Person',
+        subtitle: subtitle ? subtitle.join(', ') : 'No roles assigned',
+        media: media || UserIcon,
       }
     }
   }

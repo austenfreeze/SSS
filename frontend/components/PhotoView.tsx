@@ -2,105 +2,75 @@ import Image from 'next/image'
 import { urlFor } from "@/src/sanity/image"
 
 export default function PhotoView({ photo }: { photo: any }) {
-  // Pulling from the renamed 'mainImage' in our new query
-  const { mainImage, context, associations, metadata } = photo;
+  const { image, context, associations } = photo;
+  const metadata = image?.asset?.metadata;
   
-  // Use the palette data for the adaptive background
-  const vibrant = metadata?.palette?.vibrant?.background || '#27272a';
-  const darkMuted = metadata?.palette?.darkMuted?.background || '#000000';
+  const vibrant = metadata?.palette?.vibrant?.background || '#111';
 
-  const displayDate = associations?.capturedDate 
-    ? new Date(associations.capturedDate).toLocaleDateString('en-US', {
+  // Fix date display logic
+  const dateStr = associations?.dateConfig?.precision === 'exact' && associations.dateConfig.date
+    ? new Date(associations.dateConfig.date.replace(/-/g, '/')).toLocaleDateString('en-US', {
         month: 'long', day: 'numeric', year: 'numeric'
       })
-    : 'Archive Entry';
+    : associations?.dateConfig?.yearOnly || 'Archival Record';
 
   return (
-    <div 
-      className="min-h-screen text-zinc-300 p-4 md:p-8 lg:flex gap-12 transition-colors duration-1000 overflow-x-hidden"
-      style={{ 
-        background: `radial-gradient(circle at top right, ${vibrant}15, ${darkMuted} 100%)`,
-        backgroundColor: '#000000'
-      }}
-    >
-      {/* Primary Image Display */}
-      <div className="lg:w-2/3 flex flex-col items-center justify-center bg-black/40 backdrop-blur-3xl rounded-xl overflow-hidden border border-white/5 shadow-2xl">
-        <div className="relative w-full aspect-[4/3] md:aspect-video">
-          {photo.image && (
-            <Image
-              src={urlFor(photo.image).auto('format').url()}
-              alt={context?.narrative || "Archive View"}
-              fill
-              className="object-contain p-4 md:p-8"
-              unoptimized 
-              priority
-            />
-          )}
+    <div className="min-h-screen text-zinc-300 p-6 lg:flex gap-16 bg-black">
+      {/* Media Column */}
+      <div className="lg:w-3/5">
+        <div 
+          className="relative aspect-square md:aspect-video rounded-lg overflow-hidden border border-zinc-900 shadow-2xl"
+          style={{ boxShadow: `0 0 80px ${vibrant}10` }}
+        >
+          <Image 
+            src={urlFor(image).url()} 
+            alt={context?.caption || "Archive"} 
+            fill 
+            className="object-contain"
+            priority
+          />
         </div>
       </div>
 
-      {/* The Technical Sidebar */}
-      <div className="lg:w-1/3 mt-8 lg:mt-0 flex flex-col gap-8">
-        <section>
-          <div className="flex items-center gap-3 mb-2">
-            <span 
-               className="w-2 h-2 rounded-full animate-pulse" 
-               style={{ backgroundColor: vibrant }} 
-            />
-            <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest">
-              {context?.intent || 'Asset'} — {displayDate}
-            </p>
-          </div>
-          <h1 className="text-3xl font-bold text-white mb-4 tracking-tight">
-            {context?.narrative || 'Untitled Capture'}
-          </h1>
-          <p className="text-zinc-400 leading-relaxed font-light text-sm">
-            {context?.caption}
+      {/* Metadata Column */}
+      <div className="lg:w-2/5 flex flex-col pt-8 lg:pt-0">
+        <header className="mb-10">
+          <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.4em] mb-2">
+            {associations?.location?.name || 'Unknown Location'} — {dateStr}
           </p>
-        </section>
+          <h1 className="text-3xl font-bold text-white tracking-tighter mb-4 italic">
+            {context?.caption || 'Untitled Capture'}
+          </h1>
+          <p className="text-zinc-400 leading-relaxed text-sm max-w-md">
+            {context?.narrative}
+          </p>
+        </header>
 
-        <hr className="border-white/10" />
-
-        {/* Technical EXIF Grid */}
-        <section className="grid grid-cols-2 gap-3 font-mono text-[10px]">
-          <div className="bg-white/5 border border-white/10 p-3 rounded-md">
-            <p className="text-zinc-500 mb-1 uppercase tracking-tighter">Optics</p>
-            <p className="text-zinc-200">
-               {metadata?.exif?.FNumber ? `ƒ/${metadata.exif.FNumber}` : '—'} • {metadata?.exif?.ExposureTime ? `${metadata.exif.ExposureTime}s` : '—'}
-            </p>
-          </div>
-          <div className="bg-white/5 border border-white/10 p-3 rounded-md">
-            <p className="text-zinc-500 mb-1 uppercase tracking-tighter">Sensitivity</p>
-            <p className="text-zinc-200">ISO {metadata?.exif?.ISO || '—'}</p>
-          </div>
-          <div className="bg-white/5 border border-white/10 p-3 rounded-md">
-            <p className="text-zinc-500 mb-1 uppercase tracking-tighter">Hardware</p>
-            <p className="text-zinc-200 truncate">{metadata?.exif?.Model || 'Unknown'}</p>
-          </div>
-          <div className="bg-white/5 border border-white/10 p-3 rounded-md">
-            <p className="text-zinc-500 mb-1 uppercase tracking-tighter">Color DNA</p>
-            <div className="flex gap-1 mt-1">
-              {metadata?.palette && Object.values(metadata.palette).filter((c: any) => c?.background).slice(0, 4).map((col: any, i) => (
-                <div key={i} className="w-3 h-3 rounded-sm border border-white/10" style={{ backgroundColor: col.background }} title={col.background} />
-              ))}
+        {/* Associations Section */}
+        <div className="space-y-8 border-t border-zinc-900 pt-8">
+          {associations?.people?.length > 0 && (
+            <div>
+              <h4 className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest mb-3">Associations</h4>
+              <div className="flex flex-wrap gap-2">
+                {associations.people.map((person: any) => (
+                  <span key={person.slug} className="px-3 py-1 bg-zinc-900 text-zinc-400 text-[10px] border border-zinc-800">
+                    {person.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* Hardware Metadata */}
+          <div>
+            <h4 className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest mb-3">System EXIF</h4>
+            <div className="grid grid-cols-2 gap-4 text-[10px] font-mono">
+              <div className="text-zinc-500">CAMERA: <span className="text-zinc-300">{metadata?.exif?.Model || 'N/A'}</span></div>
+              <div className="text-zinc-500">ISO: <span className="text-zinc-300">{metadata?.exif?.ISO || 'N/A'}</span></div>
             </div>
           </div>
-        </section>
-
-        {/* Tagged Associations */}
-        {associations?.people && associations.people.length > 0 && (
-          <section>
-            <h4 className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-3">Associations</h4>
-            <div className="flex flex-wrap gap-2">
-              {associations.people.map((person: any) => (
-                <div key={person.slug} className="px-3 py-1 bg-white/5 border border-white/10 rounded text-[10px] hover:bg-white/10 hover:border-white/20 transition-all cursor-default">
-                  {person.name}
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+        </div>
       </div>
     </div>
-  )
+  );
 }

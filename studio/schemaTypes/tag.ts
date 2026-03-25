@@ -1,14 +1,14 @@
-// schemaTypes/tag.ts
+import { defineType, defineField } from 'sanity'
 import { TagIcon } from '@sanity/icons'
 
-export default {
+export default defineType({
   name: 'tag',
   title: 'Tag',
   type: 'document',
   icon: TagIcon,
   fields: [
-    { name: 'title', title: 'Title', type: 'string' },
-    { name: 'slug', title: 'Slug', type: 'slug', options: { source: 'title' } },
-    { name: 'description', title: 'Description', type: 'text' },
+    defineField({ name: 'title', title: 'Title', type: 'string' }),
+    defineField({ name: 'slug', title: 'Slug', type: 'slug', options: { source: 'title' } }),
+    defineField({ name: 'description', title: 'Description', type: 'text' }),
   ],
-}
+})

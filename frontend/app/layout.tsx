@@ -29,35 +29,14 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkProvider
-      appearance={{
-        baseTheme: dark,
-        variables: { 
-          colorPrimary: '#ffffff',
-          colorBackground: '#000000',
-          colorText: '#ffffff',
-        },
-      }}
-    >
-      <html 
-        lang="en" 
-        className={`dark ${geistSans.variable} ${geistMono.variable}`} 
-        suppressHydrationWarning
-      >
-        <body
-          className="antialiased bg-black text-white selection:bg-white selection:text-black min-h-screen flex flex-col"
-          suppressHydrationWarning
-        >
+    <ClerkProvider appearance={{ baseTheme: dark }}>
+      <html lang="en" className={`dark ${geistSans.variable} ${geistMono.variable}`}>
+        <body className="bg-black text-white antialiased selection:bg-white selection:text-black">
           <ArchivalHeader />
-          <main className="flex-1">
-            {children}
-          </main>
+          {/* Main is the shell, children provide the page specific structure */}
+          {children}
         </body>
       </html>
     </ClerkProvider>

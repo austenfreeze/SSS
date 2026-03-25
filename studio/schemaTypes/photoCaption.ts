@@ -1,58 +1,57 @@
-// schemaTypes/photoCaption.ts
 import { defineType, defineField } from 'sanity'
 
 export default defineType({
   name: 'photoCaption',
-  title: 'Photo Context & Caption',
+  title: 'Photo Context',
   type: 'object',
   fieldsets: [
-    { 
-      name: 'visibility', 
-      title: 'Visibility & Rights', 
-      options: { columns: 2 } 
-    }
+    { name: 'governance', title: 'Privacy & Intent', options: { columns: 3 } }
   ],
   fields: [
     defineField({
       name: 'caption',
-      title: 'Caption',
+      title: 'Short Caption',
+      type: 'string',
+      description: 'A brief summary for list views.'
+    }),
+    defineField({
+      name: 'narrative',
+      title: 'The Full Story',
       type: 'text',
-      rows: 3,
+      rows: 6,
+      description: 'The deep-dive archival context.'
+    }),
+    defineField({
+      name: 'isPublic',
+      title: 'Public',
+      type: 'boolean',
+      initialValue: false,
+      fieldset: 'governance'
+    }),
+    defineField({
+      name: 'isSensitive',
+      title: 'Sensitive',
+      type: 'boolean',
+      initialValue: false,
+      fieldset: 'governance'
     }),
     defineField({
       name: 'intent',
-      title: 'Primary Intent',
+      title: 'Intent',
       type: 'string',
+      fieldset: 'governance',
       options: {
         list: [
           { title: 'Personal Archive', value: 'personal' },
-          { title: 'Editorial/Article', value: 'editorial' },
-          { title: 'Creative Portfolio', value: 'portfolio' },
-          { title: 'Social Media', value: 'social' },
-          { title: 'Work/Project Asset', value: 'work' }
+          { title: 'Editorial', value: 'editorial' },
+          { title: 'Research', value: 'research' },
+          { title: 'Portfolio', value: 'portfolio' },
+          { title: 'Selfie', value: 'selfie' },
+          { title: 'Profile Photo', value: 'profile' },
+          { title: 'Candid', value: 'candid' },
         ],
         layout: 'dropdown'
       }
     }),
-    defineField({
-      name: 'isPublic',
-      title: 'Public Display',
-      type: 'boolean',
-      initialValue: false,
-      fieldset: 'visibility'
-    }),
-    defineField({
-      name: 'isSensitive',
-      title: 'Sensitive Content',
-      type: 'boolean',
-      initialValue: false,
-      fieldset: 'visibility'
-    }),
-    defineField({
-      name: 'copyright',
-      title: 'Copyright/Credit',
-      type: 'string',
-      initialValue: '© Austen Taylor Freeze', // Your legal name from Gmail
-    }),
-  ]
+  ],
 })

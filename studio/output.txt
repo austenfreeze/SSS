@@ -1,0 +1,1187 @@
+ers\Administrator\Desktop\SSS\studio>npx sanity build --no-auto-updates --yes
+  sanity:cli:updateChecker Installed CLI version is 6.1.2 +0ms
+  sanity:cli:updateChecker Checking for latest remote version +128ms
+  sanity:cli:updateChecker Max time 300 reached waiting for latest version info +0ms
+  sanity:cli:updateChecker Latest remote version is null +1ms
+  sanity:cli:updateChecker Error checking for updates: Error: Fetched value is invalid +0ms
+  sanity:cli Loading environment files using production mode +0ms
+  vite:env loading env files: [
+  vite:env   'C:/Users/Administrator/Desktop/SSS/studio/.env',
+  vite:env   'C:/Users/Administrator/Desktop/SSS/studio/.env.local',
+  vite:env   'C:/Users/Administrator/Desktop/SSS/studio/.env.production',
+  vite:env   'C:/Users/Administrator/Desktop/SSS/studio/.env.production.local'
+  vite:env ] +0ms
+  vite:env env files loaded in 8.04ms +8ms
+  vite:env using resolved env: {} +2ms
+  sanity:cli Loading CLI config from: C:\Users\Administrator\Desktop\SSS\studio\sanity.cli.ts +237ms
+[jiti] [init] version: 2.6.2 module-cache: true fs-cache: true rebuild-fs-cache: false interop-defaults: true
+  sanity:cli:importModule Loading module: C:\Users\Administrator\Desktop\SSS\studio\sanity.cli.ts { tsconfigPath: undefined } +0ms
+[jiti] [cache] [hit] C:/Users/Administrator/Desktop/SSS/studio/sanity.cli.ts ~> C:/Users/ADMINI~1/AppData/Local/Temp/jiti/studio-sanity.cli.0c6916cb.mjs
+[jiti] [transpile] [esm] C:/Users/Administrator/Desktop/SSS/studio/sanity.cli.ts (3.098ms)
+[jiti] [native] [import] C:/Users/Administrator/Desktop/SSS/node_modules/sanity/lib/cli.js
+[jiti] [native] [import] C:/Users/Administrator/Desktop/SSS/node_modules/vite/dist/node/index.js
+  sanity:cli CLI config loaded: { api: { projectId: '8j4wco3s', dataset: 'production' }, studioHost: 'stenofreality', typegen: { enabled: true }, vite: [Function: vite] } +284ms
+  sanity:cli:sanityCommand Using project root {
+  directory: 'C:\\Users\\Administrator\\Desktop\\SSS\\studio',
+  path: 'C:\\Users\\Administrator\\Desktop\\SSS\\studio\\sanity.config.ts',
+  type: 'studio'
+} +0ms
+ »   Warning: The --no-auto-updates flag is deprecated for deploy and build commands. Set the autoUpdates option in the deployment section of sanity.cli.ts or sanity.cli.js
+ »   instead.
+  sanity:cli:build Building studio +0ms
+ »   Warning: The --no-auto-updates flag is deprecated for deploy and build commands. Set the autoUpdates option in the deployment section of sanity.cli.ts or sanity.cli.js
+ »   instead.
+√ Clean output folder (14ms)
+  sanity:cli:build Writing Sanity runtime files +56ms
+  sanity:cli:build Making runtime directory +4ms
+  sanity:cli:build Rendering document template +8ms
+  sanity:cli:build Starting worker thread for file:///C:/Users/Administrator/Desktop/SSS/node_modules/@sanity/cli/dist/actions/build/renderDocument.js +3ms
+[jiti] [init] version: 2.6.2 module-cache: true fs-cache: true rebuild-fs-cache: false interop-defaults: true
+2026-03-16T04:33:01.156Z sanity:cli:importModule Loading module: C:\Users\Administrator\Desktop\SSS\node_modules\@sanity\cli\dist\actions\build\renderDocument.worker.js {
+  tsconfigPath: 'C:/Users/Administrator/Desktop/SSS/studio/tsconfig.json'
+}
+[jiti] [native] [import] C:/Users/Administrator/Desktop/SSS/node_modules/@sanity/cli/dist/actions/build/renderDocument.worker.js
+2026-03-16T04:33:05.877Z sanity:cli:build Loading default document component from `sanity` module
+  sanity:cli:promisifyWorker [/C:/Users/Administrator/Desktop/SSS/node_modules/@sanity/cli-core/dist/loaders/tsx/tsxWorkerLoader.worker.js] message { html: '<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" name="viewport"/><meta content="noindex" name="robots"/><meta content="same-origin" name="referrer"/><link href="/static/favicon.ico" rel="icon" sizes="any"/><link href="/static/favicon.svg" rel="icon" type="image/svg+xml"/><link href="/static/apple-touch-icon.png" rel="apple-touch-icon"/><link href="/static/manifest.webmanifest" rel="manifest"/><title>Sanity Studio</title><script>\n' + ';(function () {\n' + '  var _caughtErrors = []\n' + '\n' + '  var errorChannel = (function () {\n' + '    var subscribers = []\n' + '\n' + '    function publish(msg) {\n' + '      for (var i = 0; i < subscribers.length; i += 1) {\n' + '        subscribers[i](msg)\n' + '      }\n' + '    }\n' + '\n' + '    function subscribe(subscriber) {\n' + '      subscribers.push(subscriber)\n' + '\n' + '      return function () {\n' + '        var idx = subscribers.indexOf(subscriber)\n' + '\n' + '        if (idx > -1) {\n' + '          subscribers.splice(idx, 1)\n' + '        }\n' + '      }\n' + '    }\n' + '\n' + '    return {publish, subscribe, subscribers}\n' + '  })()\n' + '\n' + '  // NOTE: Store the error channel instance in the global scope so that the application can\n' + '  // access it and subscribe to errors.\n' + '  window.__sanityErrorChannel = {\n' + '    subscribe: errorChannel.subscribe,\n' + '  }\n' + '\n' + '  function _nextTick(callback) {\n' + '    setTimeout(callback, 0)\n' + '  }\n' + '\n' + '  function _handleError(error, params) {\n' + '    _nextTick(function () {\n' + '      // - If there are error channel subscribers, then we notify them (no console error).\n' + '      // - If there are no subscribers, then we log the error to the console and render the error overlay.\n' + '      if (errorChannel.subscribers.length) {\n' + '        errorChannel.publish({error, params})\n' + '      } else {\n' + '        console.error(error)\n' + '\n' + '        _renderErrorOverlay(error, params)\n' + '      }\n' + '    })\n' + '  }\n' + '\n' + '  var ERROR_BOX_STYLE = [\n' + "    'background: #fff',\n" + "    'border-radius: 6px',\n" + "    'box-sizing: border-box',\n" + "    'color: #121923',\n" + "    'flex: 1',\n" + `    "font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue','Liberation Sans',Helvetica,Arial,system-ui,sans-serif",\n` + "    'font-size: 16px',\n" + "    'line-height: 21px',\n" + "    'margin: 0 auto',\n" + "    'max-width: 960px',\n" + "    'max-height: 90dvh',\n" + "    'overflow: auto',\n" + "    'padding: 20px',\n" + "    'width: 100%',\n" + "  ].join(';')\n" + '\n' + '  var ERROR_CODE_STYLE = [\n' + "    'color: #972E2A',\n" + `    "font-family: -apple-system-ui-monospace, 'SF Mono', Menlo, Monaco, Consolas, monospace",\n` + "    'font-size: 13px',\n" + "    'line-height: 17px',\n" + "    'margin: 0',\n" + "  ].join(';')\n" + '\n' + '  function _renderErrorOverlay(error, params) {\n' + "    var errorElement = document.querySelector('#__sanityError') || document.createElement('div')\n" + '    var colno = params.event.colno\n' + '    var lineno = params.event.lineno\n' + '    var filename = params.event.filename\n' + '\n' + "    errorElement.id = '__sanityError'\n" + '    errorElement.innerHTML = [\n' + `      '<div style="' + ERROR_BOX_STYLE + '">',\n` + `      '<div style="font-weight: 700;">Uncaught error: ' + error.message + '</div>',\n` + `      '<div style="color: #515E72; font-size: 13px; line-height: 17px; margin: 10px 0;">' +\n` + '        filename +\n' + "        ':' +\n" + '        lineno +\n' + "        ':' +\n" + '        colno +\n' + "        '</div>',\n" + `      '<pre style="' + ERROR_CODE_STYLE + '">' + error.stack + '</pre>',\n` + "      '</div>',\n" + "    ].join('')\n" + '\n' + "    errorElement.style.position = 'fixed'\n" + '    errorElement.style.zIndex = 1000000\n' + '    errorElement.style.top = 0\n' + '    errorElement.style.left = 0\n' + '    errorElement.style.right = 0\n' + '    errorElement.style.bottom = 0\n' + "    errorElement.style.padding = '20px'\n" + "    errorElement.style.background = 'rgba(16,17,18,0.66)'\n" + "    errorElement.style.display = 'flex'\n" + "    errorElement.style.alignItems = 'center'\n" + "    errorElement.style.justifyContent = 'center'\n" + '\n' + '    document.body.appendChild(errorElement)\n' + '  }\n' + '\n' + '  // NOTE:\n' + "  // Yes – we're attaching 2 error listeners below 👀\n" + '  // This is because React makes the same error throw twice (in development mode).\n' + '  // See: https://github.com/facebook/react/issues/10384\n' + '\n' + '  // Error listener #1\n' + '  window.onerror = function (event, source, lineno, colno, error) {\n' + '    _nextTick(function () {\n' + '      if (_caughtErrors.indexOf(error) !== -1) return\n' + '\n' + '      _caughtErrors.push(error)\n' + '\n' + '      _handleError(error, {\n' + '        event,\n' + '        lineno,\n' + '        colno,\n' + '        source,\n' + '      })\n' + '\n' + '      _nextTick(function () {\n' + '        var idx = _caughtErrors.indexOf(error)\n' + '\n' + '        if (idx > -1) _caughtErrors.splice(idx, 1)\n' + '      })\n' + '    })\n' + '\n' + '    // IMPORTANT: this callback must return `true` to prevent the error from being rendered in\n' + '    // the browser’s console.\n' + '    return true\n' + '  }\n' + '\n' + '  // Error listener #2\n' + "  window.addEventListener('error', function (event) {\n" + '    if (_caughtErrors.indexOf(event.error) !== -1) return true\n' + '\n' + '    _caughtErrors.push(event.error)\n' + '\n' + '    _handleError(event.error, {\n' + '      event,\n' + '      lineno: event.lineno,\n' + '      colno: event.colno,\n' + '    })\n' + '\n' + '    _nextTick(function () {\n' + '      _nextTick(function () {\n' + '        var idx = _caughtErrors.indexOf(event.error)\n' + '\n' + '        if (idx > -1) _caughtErrors.splice(idx, 1)\n' + '      })\n' + '    })\n' + '\n' + '    return true\n' + '  })\n' + '})()\n' + '</script><style>\n' + '  @font-face {\n' + '    font-family: Inter;\n' + '    font-style: normal;\n' + '    font-weight: 400;\n' + '    font-display: swap;\n' + '    src: url("https://studio-static.sanity.io/Inter-Regular.woff2") format("woff2");\n' + '  }\n' + '  @font-face {\n' + '    font-family: Inter;\n' + '    font-style: italic;\n' + '    font-weight: 400;\n' + '    font-display: swap;\n' + '    src: url("https://studio-static.sanity.io/Inter-Italic.woff2") format("woff2");\n' + '  }\n' + '  @font-face {\n' + '    font-family: Inter;\n' + '    font-style: normal;\n' + '    font-weight: 500;\n' + '    font-display: swap;\n' + '    src: url("https://studio-static.sanity.io/Inter-Medium.woff2") format("woff2");\n' + '  }\n' + '  @font-face {\n' + '    font-family: Inter;\n' + '    font-style: italic;\n' + '    font-weight: 500;\n' + '    font-display: swap;\n' + '    src: url("https://studio-static.sanity.io/Inter-MediumItalic.woff2") format("woff2");\n' + '  }\n' + '  @font-face {\n' + '    font-family: Inter;\n' + '    font-style: normal;\n' + '    font-weight: 600;\n' + '    font-display: swap;\n' + '    src: url("https://studio-static.sanity.io/Inter-SemiBold.woff2") format("woff2");\n' + '  }\n' + '  @font-face {\n' + '    font-family: Inter;\n' + '    font-style: italic;\n' + '    font-weight: 600;\n' + '    font-display: swap;\n' + '    src: url("https://studio-static.sanity.io/Inter-SemiBoldItalic.woff2") format("woff2");\n' + '  }\n' + '  @font-face {\n' + '    font-family: Inter;\n' + '    font-style: normal;\n' + '    font-weight: 700;\n' + '    font-display: swap;\n' + '    src: url("https://studio-static.sanity.io/Inter-Bold.woff2") format("woff2");\n' + '  }\n' + '  @font-face {\n' + '    font-family: Inter;\n' + '    font-style: italic;\n' + '    font-weight: 700;\n' + '    font-display: swap;\n' + '    src: url("https://studio-static.sanity.io/Inter-BoldItalic.woff2") format("woff2");\n' + '  }\n' + '  @font-face {\n' + '    font-family: Inter;\n' + '    font-style: normal;\n' + '    font-weight: 800;\n' + '    font-display: swap;\n' + '    src: url("https://studio-static.sanity.io/Inter-ExtraBold.woff2") format("woff2");\n' + '  }\n' + '  @font-face {\n' + '    font-family: Inter;\n' + '    font-style: italic;\n' + '    font-weight: 800;\n' + '    font-display: swap;\n' + '    src: url("https://studio-static.sanity.io/Inter-ExtraBoldItalic.woff2") format("woff2");\n' + '  }\n' + '  @font-face {\n' + '    font-family: Inter;\n' + '    font-style: normal;\n' + '    font-weight: 900;\n' + '    font-display: swap;\n' + '    src: url("https://studio-static.sanity.io/Inter-Black.woff2") format("woff2");\n' + '  }\n' + '  @font-face {\n' + '    font-family: Inter;\n' + '    font-style: italic;\n' + '    font-weight: 900;\n' + '    font-display: swap;\n' + '    src: url("https://studio-static.sanity.io/Inter-BlackItalic.woff2") format("woff2");\n' + '  }\n' + '  html {\n' + '    @media (prefers-color-scheme: dark) {\n' + '      background-color: #13141b;\n' + '    }\n' + '    @media (prefers-color-scheme: light) {\n' + '      background-color: #ffffff;\n' + '    }\n' + '  }\n' + '  html,\n' + '  body,\n' + '  #sanity {\n' + '    height: 100%;\n' + '  }\n' + '  body {\n' + '    margin: 0;\n' + '    -webkit-font-smoothing: antialiased;\n' + '  }\n' + '</style></head><body><div id="sanity"></div><script src="/.sanity/runtime/app.js" type="module"></script><noscript><div class="sanity-app-no-js__root"><div class="sanity-app-no-js__content"><style type="text/css">\n' + '.sanity-app-no-js__root {\n' + '  position: absolute;\n' + '  top: 0;\n' + '  right: 0;\n' + '  left: 0;\n' + '  bottom: 0;\n' + '  background: #fff;\n' + '}\n' + '\n' + '.sanity-app-no-js__content {\n' + '  position: absolute;\n' + '  top: 50%;\n' + '  left: 50%;\n' + '  transform: translate(-50%, -50%);\n' + '  text-align: center;\n' + '  font-family: helvetica, arial, sans-serif;\n' + '}\n' + '</style><h1>JavaScript disabled</h1><p>Please <a href="https://www.enable-javascript.com/">enable JavaScript</a> in your browser and reload the page to proceed.</p></div></div></noscript></body></html>', type: 'result' } +0ms
+  sanity:cli:build Document HTML rendered, 8470 bytes +5s
+  sanity:cli:build Writing index.html to runtime directory +5ms
+2026-03-16T04:33:05.877Z sanity:cli:build Attempting to load user-defined document component from C:\Users\Administrator\Desktop\SSS\studio
+2026-03-16T04:33:05.878Z sanity:cli:build Trying to load document component from C:\Users\Administrator\Desktop\SSS\studio\_document.js
+2026-03-16T04:33:05.882Z sanity:cli:build Document component not found at C:\Users\Administrator\Desktop\SSS\studio\_document.js
+2026-03-16T04:33:05.882Z sanity:cli:build Trying to load document component from C:\Users\Administrator\Desktop\SSS\studio\_document.tsx
+2026-03-16T04:33:05.883Z sanity:cli:build Document component not found at C:\Users\Administrator\Desktop\SSS\studio\_document.tsx
+2026-03-16T04:33:05.883Z sanity:cli:build Using default document component
+2026-03-16T04:33:05.883Z sanity:cli:build Rendering document component using React
+  sanity:cli:build Writing app.js to runtime directory +25ms
+  sanity:cli:build Resolving vite config +7ms
+  vite:env loading env files: [
+  vite:env   'C:/Users/Administrator/Desktop/SSS/studio/.env',
+  vite:env   'C:/Users/Administrator/Desktop/SSS/studio/.env.local',
+  vite:env   'C:/Users/Administrator/Desktop/SSS/studio/.env.production',
+  vite:env   'C:/Users/Administrator/Desktop/SSS/studio/.env.production.local'
+  vite:env ] +6s
+  vite:env env files loaded in 6.17ms +6ms
+  vite:env using resolved env: {} +5ms
+  sanity:cli:build Copying static files from C:\Users\Administrator\Desktop\SSS\studio\static to output dir +40ms
+  sanity:cli:build Writing favicons to output dir +13ms
+  sanity:cli:build Bundling using vite +57ms
+  vite:env loading env files: [
+  vite:env   'C:/Users/Administrator/Desktop/SSS/studio/.env',
+  vite:env   'C:/Users/Administrator/Desktop/SSS/studio/.env.local',
+  vite:env   'C:/Users/Administrator/Desktop/SSS/studio/.env.production',
+  vite:env   'C:/Users/Administrator/Desktop/SSS/studio/.env.production.local'
+  vite:env ] +85ms
+  vite:env env files loaded in 6.15ms +6ms
+  vite:env using resolved env: {} +5ms
+  vite:config using resolved config: {
+  vite:config   base: '/',
+  vite:config   build: {
+  vite:config     target: 'esnext',
+  vite:config     polyfillModulePreload: true,
+  vite:config     modulePreload: { polyfill: true },
+  vite:config     outDir: 'C:\\Users\\Administrator\\Desktop\\SSS\\studio\\dist',
+  vite:config     assetsDir: 'static',
+  vite:config     assetsInlineLimit: 4096,
+  vite:config     sourcemap: false,
+  vite:config     terserOptions: {},
+  vite:config     rollupOptions: {
+  vite:config       external: [],
+  vite:config       input: {
+  vite:config         sanity: 'C:\\Users\\Administrator\\Desktop\\SSS\\studio\\.sanity\\runtime\\app.js'
+  vite:config       },
+  vite:config       onwarn: [Function: onwarn]
+  vite:config     },
+  vite:config     commonjsOptions: { include: [ /node_modules/ ], extensions: [ '.js', '.cjs' ] },
+  vite:config     dynamicImportVarsOptions: { warnOnError: true, exclude: [ /node_modules/ ] },
+  vite:config     write: true,
+  vite:config     emptyOutDir: false,
+  vite:config     copyPublicDir: true,
+  vite:config     license: false,
+  vite:config     manifest: false,
+  vite:config     lib: false,
+  vite:config     ssrManifest: false,
+  vite:config     ssrEmitAssets: false,
+  vite:config     reportCompressedSize: true,
+  vite:config     chunkSizeWarningLimit: 500,
+  vite:config     watch: null,
+  vite:config     cssCodeSplit: true,
+  vite:config     minify: 'esbuild',
+  vite:config     ssr: false,
+  vite:config     emitAssets: true,
+  vite:config     createEnvironment: [Function: createEnvironment],
+  vite:config     cssTarget: 'esnext',
+  vite:config     cssMinify: true
+  vite:config   },
+  vite:config   cacheDir: 'C:/Users/Administrator/Desktop/SSS/studio/node_modules/.sanity/vite',
+  vite:config   configFile: undefined,
+  vite:config   define: {
+  vite:config     __SANITY_BUILD_TIMESTAMP__: '1773635586095',
+  vite:config     __SANITY_STAGING__: false,
+  vite:config     'process.env.MODE': '"production"',
+  vite:config     'process.env.PKG_BUILD_VERSION': undefined,
+  vite:config     'process.env.SC_DISABLE_SPEEDY': '"false"',
+  vite:config     'process.env': {
+  vite:config       ALLUSERSPROFILE: 'C:\\ProgramData',
+  vite:config       APPDATA: 'C:\\Users\\Administrator\\AppData\\Roaming',
+  vite:config       'asl.log': 'Destination=file',
+  vite:config       ChocolateyInstall: 'C:\\ProgramData\\chocolatey',
+  vite:config       ChocolateyLastPathUpdate: '133763460659406051',
+  vite:config       ChocolateyToolsLocation: 'C:\\tools',
+  vite:config       COLOR: '1',
+  vite:config       CommonProgramFiles: 'C:\\Program Files\\Common Files',
+  vite:config       'CommonProgramFiles(x86)': 'C:\\Program Files (x86)\\Common Files',
+  vite:config       CommonProgramW6432: 'C:\\Program Files\\Common Files',
+  vite:config       COMPUTERNAME: 'STENSHQ',
+  vite:config       ComSpec: 'C:\\WINDOWS\\system32\\cmd.exe',
+  vite:config       DEBUG: 'vite:*,sanity:*',
+  vite:config       DriverData: 'C:\\Windows\\System32\\Drivers\\DriverData',
+  vite:config       EDITOR: 'C:\\WINDOWS\\notepad.exe',
+  vite:config       FPS_BROWSER_APP_PROFILE_STRING: 'Internet Explorer',
+  vite:config       FPS_BROWSER_USER_PROFILE_STRING: 'Default',
+  vite:config       HOME: 'C:\\Users\\Administrator',
+  vite:config       HOMEDRIVE: 'C:',
+  vite:config       HOMEPATH: '\\Users\\Administrator',
+  vite:config       INIT_CWD: 'C:\\Users\\Administrator\\Desktop\\SSS\\studio',
+  vite:config       LOCALAPPDATA: 'C:\\Users\\Administrator\\AppData\\Local',
+  vite:config       LOGONSERVER: '\\\\STENSHQ',
+  vite:config       nasm: 'C:\\Users\\stenp\\Desktop\\VenusOS',
+  vite:config       NODE: 'C:\\nvm4w\\nodejs\\node.exe',
+  vite:config       npm_command: 'exec',
+  vite:config       npm_config_cache: 'C:\\Users\\Administrator\\AppData\\Local\\npm-cache',
+  vite:config       npm_config_globalconfig: 'C:\\nvm4w\\nodejs\\etc\\npmrc',
+  vite:config       npm_config_global_prefix: 'C:\\nvm4w\\nodejs',
+  vite:config       npm_config_init_module: 'C:\\Users\\Administrator\\.npm-init.js',
+  vite:config       npm_config_local_prefix: 'C:\\Users\\Administrator\\Desktop\\SSS',
+  vite:config       npm_config_node_gyp: 'C:\\Users\\Administrator\\AppData\\Local\\nvm\\v22.17.1\\node_modules\\npm\\node_modules\\node-gyp\\bin\\node-gyp.js',
+  vite:config       npm_config_noproxy: '',
+  vite:config       npm_config_npm_version: '11.9.0',
+  vite:config       npm_config_prefix: 'C:\\nvm4w\\nodejs',
+  vite:config       npm_config_userconfig: 'C:\\Users\\Administrator\\.npmrc',
+  vite:config       npm_config_user_agent: 'npm/11.9.0 node/v22.17.1 win32 x64 workspaces/true',
+  vite:config       npm_execpath: 'C:\\Users\\Administrator\\AppData\\Local\\nvm\\v22.17.1\\node_modules\\npm\\bin\\npm-cli.js',
+  vite:config       npm_lifecycle_event: 'npx',
+  vite:config       npm_lifecycle_script: 'sanity',
+  vite:config       npm_node_execpath: 'C:\\nvm4w\\nodejs\\node.exe',
+  vite:config       npm_package_json: 'C:\\Users\\Administrator\\Desktop\\SSS\\studio\\package.json',
+  vite:config       npm_package_name: 'sss-monorepo',
+  vite:config       NUMBER_OF_PROCESSORS: '8',
+  vite:config       NVM_HOME: 'C:\\Users\\Administrator\\AppData\\Local\\nvm',
+  vite:config       NVM_SYMLINK: 'C:\\nvm4w\\nodejs',
+  vite:config       OneDrive: 'C:\\Users\\Administrator\\OneDrive',
+  vite:config       OS: 'Windows_NT',
+  vite:config       Path: 'C:\\Users\\Administrator\\Desktop\\SSS\\node_modules\\.bin;C:\\Users\\Administrator\\Desktop\\SSS\\studio\\node_modules\\.bin;C:\\Users\\Administrator\\Desktop\\SSS\\node_modules\\.bin;C:\\Users\\Administrator\\Desktop\\node_modules\\.bin;C:\\Users\\Administrator\\node_modules\\.bin;C:\\Users\\node_modules\\.bin;C:\\node_modules\\.bin;C:\\Users\\Administrator\\AppData\\Local\\nvm\\v22.17.1\\node_modules\\npm\\node_modules\\@npmcli\\run-script\\lib\\node-gyp-bin;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\Program Files\\dotnet\\;C:\\Users\\Administrator\\AppData\\Local\\nvm;C:\\nvm4w\\nodejs;C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python311\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\nodejs\\;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\cursor\\resources\\app\\bin;C:\\Program Files\\GitHub CLI\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\Program Files\\dotnet\\;C:\\Program Files\\Git\\cmd;C:\\Users\\Administrator\\AppData\\Local\\nvm;C:\\nvm4w\\nodejs;C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python311\\;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Launcher\\;C:\\WhoIs;;C:\\Windows\\System32\\WindowsPowerShell\\v1.0";C:\\Users\\Administrator\\.dotnet\\tools;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\Administrator\\AppData\\Roaming\\npm;C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\WindowsApps',
+  vite:config       PATHEXT: '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC',
+  vite:config       PROCESSOR_ARCHITECTURE: 'AMD64',
+  vite:config       PROCESSOR_IDENTIFIER: 'AMD64 Family 23 Model 17 Stepping 0, AuthenticAMD',
+  vite:config       PROCESSOR_LEVEL: '23',
+  vite:config       PROCESSOR_REVISION: '1100',
+  vite:config       ProgramData: 'C:\\ProgramData',
+  vite:config       ProgramFiles: 'C:\\Program Files',
+  vite:config       'ProgramFiles(x86)': 'C:\\Program Files (x86)',
+  vite:config       ProgramW6432: 'C:\\Program Files',
+  vite:config       PROMPT: '$P$G',
+  vite:config       PSModulePath: 'C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules',
+  vite:config       PUBLIC: 'C:\\Users\\Public',
+  vite:config       SESSIONNAME: 'Console',
+  vite:config       SystemDrive: 'C:',
+  vite:config       SystemRoot: 'C:\\WINDOWS',
+  vite:config       TEMP: 'C:\\Users\\ADMINI~1\\AppData\\Local\\Temp',
+  vite:config       TMP: 'C:\\Users\\ADMINI~1\\AppData\\Local\\Temp',
+  vite:config       USERDOMAIN: 'STENSHQ',
+  vite:config       USERDOMAIN_ROAMINGPROFILE: 'STENSHQ',
+  vite:config       USERNAME: 'Administrator',
+  vite:config       USERPROFILE: 'C:\\Users\\Administrator',
+  vite:config       VBOX_HWVIRTEX_IGNORE_SVM_IN_USE: '1',
+  vite:config       windir: 'C:\\WINDOWS',
+  vite:config       __PSLockDownPolicy: '0'
+  vite:config     }
+  vite:config   },
+  vite:config   envPrefix: 'SANITY_STUDIO_',
+  vite:config   logLevel: 'silent',
+  vite:config   mode: 'production',
+  vite:config   plugins: [
+  vite:config     'vite:build-metadata',
+  vite:config     'vite:watch-package-data',
+  vite:config     'alias',
+  vite:config     'vite:react-babel',
+  vite:config     'vite:react-refresh',
+  vite:config     'vite:modulepreload-polyfill',
+  vite:config     'vite:resolve',
+  vite:config     'vite:html-inline-proxy',
+  vite:config     'vite:css',
+  vite:config     'vite:esbuild',
+  vite:config     'vite:json',
+  vite:config     'vite:wasm-helper',
+  vite:config     'vite:worker',
+  vite:config     'vite:asset',
+  vite:config     'vite:react-virtual-preamble',
+  vite:config     'sanity/server/build-entries',
+  vite:config     'vite:wasm-fallback',
+  vite:config     'vite:define',
+  vite:config     'vite:css-post',
+  vite:config     'vite:build-html',
+  vite:config     'vite:worker-import-meta-url',
+  vite:config     'vite:asset-import-meta-url',
+  vite:config     'vite:force-amd-wrap-require',
+  vite:config     'vite:force-systemjs-wrap-complete',
+  vite:config     'vite:prepare-out-dir',
+  vite:config     'commonjs',
+  vite:config     'vite:data-uri',
+  vite:config     'vite:rollup-options-plugins',
+  vite:config     'vite:dynamic-import-vars',
+  vite:config     'vite:import-glob',
+  vite:config     'vite:build-import-analysis',
+  vite:config     'vite:esbuild-transpile',
+  vite:config     'vite:terser',
+  vite:config     'vite:license',
+  vite:config     'vite:manifest',
+  vite:config     'vite:ssr-manifest',
+  vite:config     'vite:reporter',
+  vite:config     'vite:load-fallback'
+  vite:config   ],
+  vite:config   resolve: {
+  vite:config     externalConditions: [ 'node', 'module-sync' ],
+  vite:config     extensions: [
+  vite:config       '.mjs',  '.js',
+  vite:config       '.mts',  '.ts',
+  vite:config       '.jsx',  '.tsx',
+  vite:config       '.json'
+  vite:config     ],
+  vite:config     dedupe: [ 'react', 'react-dom', 'sanity', 'styled-components' ],
+  vite:config     noExternal: [],
+  vite:config     external: [],
+  vite:config     preserveSymlinks: false,
+  vite:config     alias: [
+  vite:config       {
+  vite:config         find: 'react/jsx-runtime',
+  vite:config         replacement: 'react/jsx-runtime.js'
+  vite:config       },
+  vite:config       {
+  vite:config         find: /^\/?@vite\/env/,
+  vite:config         replacement: '/@fs/C:/Users/Administrator/Desktop/SSS/node_modules/vite/dist/client/env.mjs'
+  vite:config       },
+  vite:config       {
+  vite:config         find: /^\/?@vite\/client/,
+  vite:config         replacement: '/@fs/C:/Users/Administrator/Desktop/SSS/node_modules/vite/dist/client/client.mjs'
+  vite:config       }
+  vite:config     ],
+  vite:config     mainFields: [ 'browser', 'module', 'jsnext:main', 'jsnext' ],
+  vite:config     conditions: [ 'module', 'browser', 'development|production' ],
+  vite:config     builtins: []
+  vite:config   },
+  vite:config   root: 'C:/Users/Administrator/Desktop/SSS/studio',
+  vite:config   server: {
+  vite:config     port: 3333,
+  vite:config     strictPort: true,
+  vite:config     host: undefined,
+  vite:config     allowedHosts: [],
+  vite:config     https: undefined,
+  vite:config     open: false,
+  vite:config     proxy: undefined,
+  vite:config     cors: {
+  vite:config       origin: /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/
+  vite:config     },
+  vite:config     headers: {},
+  vite:config     warmup: { clientFiles: [ './.sanity/runtime/app.js' ], ssrFiles: [] },
+  vite:config     middlewareMode: false,
+  vite:config     fs: {
+  vite:config       strict: true,
+  vite:config       deny: [ '.env', '.env.*', '*.{crt,pem}', '**/.git/**' ],
+  vite:config       allow: [ 'C:/Users/Administrator/Desktop/SSS' ]
+  vite:config     },
+  vite:config     preTransformRequests: true,
+  vite:config     perEnvironmentStartEndDuringDev: false,
+  vite:config     perEnvironmentWatchChangeDuringDev: false,
+  vite:config     sourcemapIgnoreList: [Function: isInNodeModules]
+  vite:config   },
+  vite:config   worker: { format: 'es', plugins: '() => plugins', rollupOptions: {} },
+  vite:config   esbuild: {
+  vite:config     jsxDev: false,
+  vite:config     charset: 'utf8',
+  vite:config     legalComments: 'none',
+  vite:config     jsx: 'automatic',
+  vite:config     jsxImportSource: undefined
+  vite:config   },
+  vite:config   optimizeDeps: {
+  vite:config     include: [
+  vite:config       'react',
+  vite:config       'react-dom',
+  vite:config       'react/jsx-dev-runtime',
+  vite:config       'react/jsx-runtime'
+  vite:config     ],
+  vite:config     exclude: [],
+  vite:config     needsInterop: [],
+  vite:config     extensions: [],
+  vite:config     disabled: undefined,
+  vite:config     holdUntilCrawlEnd: true,
+  vite:config     force: false,
+  vite:config     ignoreOutdatedRequests: false,
+  vite:config     noDiscovery: false,
+  vite:config     esbuildOptions: { preserveSymlinks: false, jsx: 'automatic' }
+  vite:config   },
+  vite:config   environments: {
+  vite:config     client: {
+  vite:config       define: {
+  vite:config         __SANITY_BUILD_TIMESTAMP__: '1773635586095',
+  vite:config         __SANITY_STAGING__: false,
+  vite:config         'process.env.MODE': '"production"',
+  vite:config         'process.env.PKG_BUILD_VERSION': undefined,
+  vite:config         'process.env.SC_DISABLE_SPEEDY': '"false"',
+  vite:config         'process.env': {
+  vite:config           ALLUSERSPROFILE: 'C:\\ProgramData',
+  vite:config           APPDATA: 'C:\\Users\\Administrator\\AppData\\Roaming',
+  vite:config           'asl.log': 'Destination=file',
+  vite:config           ChocolateyInstall: 'C:\\ProgramData\\chocolatey',
+  vite:config           ChocolateyLastPathUpdate: '133763460659406051',
+  vite:config           ChocolateyToolsLocation: 'C:\\tools',
+  vite:config           COLOR: '1',
+  vite:config           CommonProgramFiles: 'C:\\Program Files\\Common Files',
+  vite:config           'CommonProgramFiles(x86)': 'C:\\Program Files (x86)\\Common Files',
+  vite:config           CommonProgramW6432: 'C:\\Program Files\\Common Files',
+  vite:config           COMPUTERNAME: 'STENSHQ',
+  vite:config           ComSpec: 'C:\\WINDOWS\\system32\\cmd.exe',
+  vite:config           DEBUG: 'vite:*,sanity:*',
+  vite:config           DriverData: 'C:\\Windows\\System32\\Drivers\\DriverData',
+  vite:config           EDITOR: 'C:\\WINDOWS\\notepad.exe',
+  vite:config           FPS_BROWSER_APP_PROFILE_STRING: 'Internet Explorer',
+  vite:config           FPS_BROWSER_USER_PROFILE_STRING: 'Default',
+  vite:config           HOME: 'C:\\Users\\Administrator',
+  vite:config           HOMEDRIVE: 'C:',
+  vite:config           HOMEPATH: '\\Users\\Administrator',
+  vite:config           INIT_CWD: 'C:\\Users\\Administrator\\Desktop\\SSS\\studio',
+  vite:config           LOCALAPPDATA: 'C:\\Users\\Administrator\\AppData\\Local',
+  vite:config           LOGONSERVER: '\\\\STENSHQ',
+  vite:config           nasm: 'C:\\Users\\stenp\\Desktop\\VenusOS',
+  vite:config           NODE: 'C:\\nvm4w\\nodejs\\node.exe',
+  vite:config           npm_command: 'exec',
+  vite:config           npm_config_cache: 'C:\\Users\\Administrator\\AppData\\Local\\npm-cache',
+  vite:config           npm_config_globalconfig: 'C:\\nvm4w\\nodejs\\etc\\npmrc',
+  vite:config           npm_config_global_prefix: 'C:\\nvm4w\\nodejs',
+  vite:config           npm_config_init_module: 'C:\\Users\\Administrator\\.npm-init.js',
+  vite:config           npm_config_local_prefix: 'C:\\Users\\Administrator\\Desktop\\SSS',
+  vite:config           npm_config_node_gyp: 'C:\\Users\\Administrator\\AppData\\Local\\nvm\\v22.17.1\\node_modules\\npm\\node_modules\\node-gyp\\bin\\node-gyp.js',
+  vite:config           npm_config_noproxy: '',
+  vite:config           npm_config_npm_version: '11.9.0',
+  vite:config           npm_config_prefix: 'C:\\nvm4w\\nodejs',
+  vite:config           npm_config_userconfig: 'C:\\Users\\Administrator\\.npmrc',
+  vite:config           npm_config_user_agent: 'npm/11.9.0 node/v22.17.1 win32 x64 workspaces/true',
+  vite:config           npm_execpath: 'C:\\Users\\Administrator\\AppData\\Local\\nvm\\v22.17.1\\node_modules\\npm\\bin\\npm-cli.js',
+  vite:config           npm_lifecycle_event: 'npx',
+  vite:config           npm_lifecycle_script: 'sanity',
+  vite:config           npm_node_execpath: 'C:\\nvm4w\\nodejs\\node.exe',
+  vite:config           npm_package_json: 'C:\\Users\\Administrator\\Desktop\\SSS\\studio\\package.json',
+  vite:config           npm_package_name: 'sss-monorepo',
+  vite:config           NUMBER_OF_PROCESSORS: '8',
+  vite:config           NVM_HOME: 'C:\\Users\\Administrator\\AppData\\Local\\nvm',
+  vite:config           NVM_SYMLINK: 'C:\\nvm4w\\nodejs',
+  vite:config           OneDrive: 'C:\\Users\\Administrator\\OneDrive',
+  vite:config           OS: 'Windows_NT',
+  vite:config           Path: 'C:\\Users\\Administrator\\Desktop\\SSS\\node_modules\\.bin;C:\\Users\\Administrator\\Desktop\\SSS\\studio\\node_modules\\.bin;C:\\Users\\Administrator\\Desktop\\SSS\\node_modules\\.bin;C:\\Users\\Administrator\\Desktop\\node_modules\\.bin;C:\\Users\\Administrator\\node_modules\\.bin;C:\\Users\\node_modules\\.bin;C:\\node_modules\\.bin;C:\\Users\\Administrator\\AppData\\Local\\nvm\\v22.17.1\\node_modules\\npm\\node_modules\\@npmcli\\run-script\\lib\\node-gyp-bin;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\Program Files\\dotnet\\;C:\\Users\\Administrator\\AppData\\Local\\nvm;C:\\nvm4w\\nodejs;C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python311\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\nodejs\\;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\cursor\\resources\\app\\bin;C:\\Program Files\\GitHub CLI\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\Program Files\\dotnet\\;C:\\Program Files\\Git\\cmd;C:\\Users\\Administrator\\AppData\\Local\\nvm;C:\\nvm4w\\nodejs;C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python311\\;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Launcher\\;C:\\WhoIs;;C:\\Windows\\System32\\WindowsPowerShell\\v1.0";C:\\Users\\Administrator\\.dotnet\\tools;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\Administrator\\AppData\\Roaming\\npm;C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\WindowsApps',
+  vite:config           PATHEXT: '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC',
+  vite:config           PROCESSOR_ARCHITECTURE: 'AMD64',
+  vite:config           PROCESSOR_IDENTIFIER: 'AMD64 Family 23 Model 17 Stepping 0, AuthenticAMD',
+  vite:config           PROCESSOR_LEVEL: '23',
+  vite:config           PROCESSOR_REVISION: '1100',
+  vite:config           ProgramData: 'C:\\ProgramData',
+  vite:config           ProgramFiles: 'C:\\Program Files',
+  vite:config           'ProgramFiles(x86)': 'C:\\Program Files (x86)',
+  vite:config           ProgramW6432: 'C:\\Program Files',
+  vite:config           PROMPT: '$P$G',
+  vite:config           PSModulePath: 'C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules',
+  vite:config           PUBLIC: 'C:\\Users\\Public',
+  vite:config           SESSIONNAME: 'Console',
+  vite:config           SystemDrive: 'C:',
+  vite:config           SystemRoot: 'C:\\WINDOWS',
+  vite:config           TEMP: 'C:\\Users\\ADMINI~1\\AppData\\Local\\Temp',
+  vite:config           TMP: 'C:\\Users\\ADMINI~1\\AppData\\Local\\Temp',
+  vite:config           USERDOMAIN: 'STENSHQ',
+  vite:config           USERDOMAIN_ROAMINGPROFILE: 'STENSHQ',
+  vite:config           USERNAME: 'Administrator',
+  vite:config           USERPROFILE: 'C:\\Users\\Administrator',
+  vite:config           VBOX_HWVIRTEX_IGNORE_SVM_IN_USE: '1',
+  vite:config           windir: 'C:\\WINDOWS',
+  vite:config           __PSLockDownPolicy: '0'
+  vite:config         }
+  vite:config       },
+  vite:config       resolve: {
+  vite:config         externalConditions: [ 'node', 'module-sync' ],
+  vite:config         extensions: [
+  vite:config           '.mjs',  '.js',
+  vite:config           '.mts',  '.ts',
+  vite:config           '.jsx',  '.tsx',
+  vite:config           '.json'
+  vite:config         ],
+  vite:config         dedupe: [ 'react', 'react-dom', 'sanity', 'styled-components' ],
+  vite:config         noExternal: [],
+  vite:config         external: [],
+  vite:config         preserveSymlinks: false,
+  vite:config         alias: [
+  vite:config           {
+  vite:config             find: 'react/jsx-runtime',
+  vite:config             replacement: 'react/jsx-runtime.js'
+  vite:config           },
+  vite:config           {
+  vite:config             find: /^\/?@vite\/env/,
+  vite:config             replacement: '/@fs/C:/Users/Administrator/Desktop/SSS/node_modules/vite/dist/client/env.mjs'
+  vite:config           },
+  vite:config           {
+  vite:config             find: /^\/?@vite\/client/,
+  vite:config             replacement: '/@fs/C:/Users/Administrator/Desktop/SSS/node_modules/vite/dist/client/client.mjs'
+  vite:config           }
+  vite:config         ],
+  vite:config         mainFields: [ 'browser', 'module', 'jsnext:main', 'jsnext' ],
+  vite:config         conditions: [ 'module', 'browser', 'development|production' ],
+  vite:config         builtins: []
+  vite:config       },
+  vite:config       keepProcessEnv: false,
+  vite:config       consumer: 'client',
+  vite:config       optimizeDeps: {
+  vite:config         include: [
+  vite:config           'react',
+  vite:config           'react-dom',
+  vite:config           'react/jsx-dev-runtime',
+  vite:config           'react/jsx-runtime'
+  vite:config         ],
+  vite:config         exclude: [],
+  vite:config         needsInterop: [],
+  vite:config         extensions: [],
+  vite:config         disabled: undefined,
+  vite:config         holdUntilCrawlEnd: true,
+  vite:config         force: false,
+  vite:config         ignoreOutdatedRequests: false,
+  vite:config         noDiscovery: false,
+  vite:config         esbuildOptions: { preserveSymlinks: false, jsx: 'automatic' }
+  vite:config       },
+  vite:config       dev: {
+  vite:config         warmup: [ './.sanity/runtime/app.js' ],
+  vite:config         sourcemap: { js: true },
+  vite:config         sourcemapIgnoreList: [Function: isInNodeModules],
+  vite:config         preTransformRequests: true,
+  vite:config         createEnvironment: [Function: defaultCreateClientDevEnvironment],
+  vite:config         recoverable: true,
+  vite:config         moduleRunnerTransform: false
+  vite:config       },
+  vite:config       build: {
+  vite:config         target: 'esnext',
+  vite:config         polyfillModulePreload: true,
+  vite:config         modulePreload: { polyfill: true },
+  vite:config         outDir: 'C:\\Users\\Administrator\\Desktop\\SSS\\studio\\dist',
+  vite:config         assetsDir: 'static',
+  vite:config         assetsInlineLimit: 4096,
+  vite:config         sourcemap: false,
+  vite:config         terserOptions: {},
+  vite:config         rollupOptions: {
+  vite:config           external: [],
+  vite:config           input: {
+  vite:config             sanity: 'C:\\Users\\Administrator\\Desktop\\SSS\\studio\\.sanity\\runtime\\app.js'
+  vite:config           },
+  vite:config           onwarn: [Function: onwarn]
+  vite:config         },
+  vite:config         commonjsOptions: { include: [ /node_modules/ ], extensions: [ '.js', '.cjs' ] },
+  vite:config         dynamicImportVarsOptions: { warnOnError: true, exclude: [ /node_modules/ ] },
+  vite:config         write: true,
+  vite:config         emptyOutDir: false,
+  vite:config         copyPublicDir: true,
+  vite:config         license: false,
+  vite:config         manifest: false,
+  vite:config         lib: false,
+  vite:config         ssrManifest: false,
+  vite:config         ssrEmitAssets: false,
+  vite:config         reportCompressedSize: true,
+  vite:config         chunkSizeWarningLimit: 500,
+  vite:config         watch: null,
+  vite:config         cssCodeSplit: true,
+  vite:config         minify: 'esbuild',
+  vite:config         ssr: false,
+  vite:config         emitAssets: true,
+  vite:config         createEnvironment: [Function: createEnvironment],
+  vite:config         cssTarget: 'esnext',
+  vite:config         cssMinify: true
+  vite:config       },
+  vite:config       plugins: [
+  vite:config         {
+  vite:config           name: 'vite:build-metadata',
+  vite:config           renderChunk: [AsyncFunction: renderChunk]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:watch-package-data',
+  vite:config           buildStart: [Function: buildStart],
+  vite:config           buildEnd: [Function: buildEnd],
+  vite:config           watchChange: [Function: watchChange]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'alias',
+  vite:config           buildStart: [AsyncFunction: buildStart],
+  vite:config           resolveId: [Function: resolveId]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:react-babel',
+  vite:config           enforce: 'pre',
+  vite:config           config: [Function: config],
+  vite:config           configResolved: [Function: configResolved],
+  vite:config           options: [Function: options]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:react-refresh',
+  vite:config           enforce: 'pre',
+  vite:config           config: [Function: config],
+  vite:config           resolveId: {
+  vite:config             filter: { id: /^\/@react\-refresh$/ },
+  vite:config             handler: [Function: handler]
+  vite:config           },
+  vite:config           load: {
+  vite:config             filter: { id: /^\/@react\-refresh$/ },
+  vite:config             handler: [Function: handler]
+  vite:config           },
+  vite:config           transformIndexHtml: [Function: transformIndexHtml]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:modulepreload-polyfill',
+  vite:config           resolveId: {
+  vite:config             filter: { id: /^vite\/modulepreload\-polyfill$/ },
+  vite:config             handler: [Function: handler]
+  vite:config           },
+  vite:config           load: {
+  vite:config             filter: { id: /^vite\/modulepreload\-polyfill\.js$/ },
+  vite:config             handler: [Function: handler]
+  vite:config           }
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:resolve',
+  vite:config           resolveId: {
+  vite:config             filter: { id: { exclude: /^(?:\0|\/?virtual:)/ } },
+  vite:config             handler: [AsyncFunction: handler]
+  vite:config           },
+  vite:config           load: {
+  vite:config             filter: {
+  vite:config               id: [
+  vite:config                 /^__vite\-browser\-external/,
+  vite:config                 /^__vite\-optional\-peer\-dep/
+  vite:config               ]
+  vite:config             },
+  vite:config             handler: [Function: handler]
+  vite:config           }
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:html-inline-proxy',
+  vite:config           resolveId: {
+  vite:config             filter: { id: /[?&]html-proxy\b/ },
+  vite:config             handler: [Function: handler]
+  vite:config           },
+  vite:config           load: {
+  vite:config             filter: { id: /[?&]html-proxy\b/ },
+  vite:config             handler: [Function: handler]
+  vite:config           }
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:css',
+  vite:config           buildStart: [Function: buildStart],
+  vite:config           buildEnd: [Function: buildEnd],
+  vite:config           load: {
+  vite:config             filter: {
+  vite:config               id: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/
+  vite:config             },
+  vite:config             handler: [AsyncFunction: handler]
+  vite:config           },
+  vite:config           transform: {
+  vite:config             filter: {
+  vite:config               id: {
+  vite:config                 include: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/,
+  vite:config                 exclude: [
+  vite:config                   /[?&]commonjs-proxy/,
+  vite:config                   /[?&](?:worker|sharedworker|raw|url)\b/
+  vite:config                 ]
+  vite:config               }
+  vite:config             },
+  vite:config             handler: [AsyncFunction: handler]
+  vite:config           }
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:esbuild',
+  vite:config           configureServer: [Function: configureServer],
+  vite:config           transform: [AsyncFunction: transform]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:json',
+  vite:config           transform: {
+  vite:config             filter: {
+  vite:config               id: {
+  vite:config                 include: /\.json(?:$|\?)(?!commonjs-(?:proxy|external))/,
+  vite:config                 exclude: /[?&](?:worker|sharedworker|raw|url)\b/
+  vite:config               }
+  vite:config             },
+  vite:config             handler: [Function: handler]
+  vite:config           }
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:wasm-helper',
+  vite:config           resolveId: {
+  vite:config             filter: { id: /^vite\/wasm\-helper\.js$/ },
+  vite:config             handler: [Function: handler]
+  vite:config           },
+  vite:config           load: {
+  vite:config             filter: {
+  vite:config               id: [
+  vite:config                 /^vite\/wasm\-helper\.js$/,
+  vite:config                 /(?<![?#].*)\.wasm\?init/
+  vite:config               ]
+  vite:config             },
+  vite:config             handler: [AsyncFunction: handler]
+  vite:config           }
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:worker',
+  vite:config           buildStart: [Function: buildStart],
+  vite:config           load: {
+  vite:config             filter: { id: /(?:\?|&)(worker|sharedworker)(?:&|$)/ },
+  vite:config             handler: [AsyncFunction: handler]
+  vite:config           },
+  vite:config           transform: {
+  vite:config             filter: { id: /(?:\?|&)worker_file&type=(\w+)(?:&|$)/ },
+  vite:config             handler: [AsyncFunction: handler]
+  vite:config           },
+  vite:config           renderChunk: [Function: renderChunk],
+  vite:config           generateBundle: [Function: generateBundle],
+  vite:config           watchChange: [Function: watchChange]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:asset',
+  vite:config           perEnvironmentStartEndDuringDev: true,
+  vite:config           buildStart: [Function: buildStart],
+  vite:config           resolveId: { handler: [Function: handler] },
+  vite:config           load: {
+  vite:config             filter: { id: { exclude: /^\0/ } },
+  vite:config             handler: [AsyncFunction: handler]
+  vite:config           },
+  vite:config           renderChunk: [Function: renderChunk],
+  vite:config           generateBundle: [Function: generateBundle]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:react-virtual-preamble',
+  vite:config           resolveId: {
+  vite:config             order: 'pre',
+  vite:config             filter: { id: /^@vitejs\/plugin\-react\/preamble$/ },
+  vite:config             handler: [Function: handler]
+  vite:config           },
+  vite:config           load: {
+  vite:config             filter: { id: /^@vitejs\/plugin\-react\/preamble$/ },
+  vite:config             handler: [Function: handler]
+  vite:config           }
+  vite:config         },
+  vite:config         {
+  vite:config           apply: 'build',
+  vite:config           name: 'sanity/server/build-entries',
+  vite:config           buildStart: [Function: buildStart],
+  vite:config           generateBundle: [AsyncFunction: generateBundle]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:wasm-fallback',
+  vite:config           load: { filter: { id: /\.wasm$/ }, handler: [Function: handler] }
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:define',
+  vite:config           transform: { handler: [AsyncFunction: handler] }
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:css-post',
+  vite:config           renderStart: [Function: renderStart],
+  vite:config           transform: {
+  vite:config             filter: {
+  vite:config               id: {
+  vite:config                 include: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/,
+  vite:config                 exclude: [
+  vite:config                   /[?&]commonjs-proxy/,
+  vite:config                   /[?&](?:worker|sharedworker|raw|url)\b/
+  vite:config                 ]
+  vite:config               }
+  vite:config             },
+  vite:config             handler: [AsyncFunction: handler]
+  vite:config           },
+  vite:config           renderChunk: [AsyncFunction: renderChunk],
+  vite:config           augmentChunkHash: [Function: augmentChunkHash],
+  vite:config           generateBundle: [AsyncFunction: generateBundle]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:build-html',
+  vite:config           transform: {
+  vite:config             filter: { id: /\.html$/ },
+  vite:config             handler: [AsyncFunction: handler]
+  vite:config           },
+  vite:config           generateBundle: [AsyncFunction: generateBundle]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:worker-import-meta-url',
+  vite:config           applyToEnvironment: [Function: applyToEnvironment],
+  vite:config           transform: {
+  vite:config             filter: {
+  vite:config               code: /new\s+(?:Worker|SharedWorker)\s*\(\s*new\s+URL.+?import\.meta\.url/s
+  vite:config             },
+  vite:config             handler: [AsyncFunction: handler]
+  vite:config           }
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:asset-import-meta-url',
+  vite:config           applyToEnvironment: [Function: applyToEnvironment],
+  vite:config           transform: {
+  vite:config             filter: {
+  vite:config               id: {
+  vite:config                 exclude: [
+  vite:config                   /^vite\/preload\-helper\.js$/,
+  vite:config                   /^C:\\Users\\Administrator\\Desktop\\SSS\\node_modules\\vite\\dist\\client\\client\.mjs$/
+  vite:config                 ]
+  vite:config               },
+  vite:config               code: /new\s+URL.+import\.meta\.url/s
+  vite:config             },
+  vite:config             handler: [AsyncFunction: handler]
+  vite:config           }
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:force-amd-wrap-require',
+  vite:config           renderChunk: [Function: renderChunk]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:force-systemjs-wrap-complete',
+  vite:config           renderChunk: [Function: renderChunk]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:prepare-out-dir',
+  vite:config           options: [Function: options],
+  vite:config           renderStart: { order: 'pre', handler: [Function: handler] }
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'commonjs',
+  vite:config           version: '29.0.0',
+  vite:config           options: [Function: options],
+  vite:config           buildStart: [Function: buildStart],
+  vite:config           buildEnd: [Function: buildEnd],
+  vite:config           load: [AsyncFunction: load],
+  vite:config           shouldTransformCachedModule: [Function: shouldTransformCachedModule],
+  vite:config           transform: [Function: transform]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:data-uri',
+  vite:config           buildStart: [Function: buildStart],
+  vite:config           resolveId: [Function: resolveId],
+  vite:config           load: [Function: load]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:dynamic-import-vars',
+  vite:config           resolveId: {
+  vite:config             filter: { id: /^vite\/dynamic\-import\-helper\.js$/ },
+  vite:config             handler: [Function: handler]
+  vite:config           },
+  vite:config           load: {
+  vite:config             filter: { id: /^vite\/dynamic\-import\-helper\.js$/ },
+  vite:config             handler: [Function: handler]
+  vite:config           },
+  vite:config           transform: {
+  vite:config             filter: {
+  vite:config               id: {
+  vite:config                 exclude: /^C:\\Users\\Administrator\\Desktop\\SSS\\node_modules\\vite\\dist\\client\\client\.mjs$/
+  vite:config               },
+  vite:config               code: /\bimport\s*[(/]/
+  vite:config             },
+  vite:config             handler: [AsyncFunction: handler]
+  vite:config           }
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:import-glob',
+  vite:config           buildStart: [Function: buildStart],
+  vite:config           transform: {
+  vite:config             filter: { code: 'import.meta.glob' },
+  vite:config             handler: [AsyncFunction: handler]
+  vite:config           },
+  vite:config           hotUpdate: [Function: hotUpdate]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:build-import-analysis',
+  vite:config           resolveId: {
+  vite:config             filter: { id: /^vite\/preload\-helper\.js$/ },
+  vite:config             handler: [Function: handler]
+  vite:config           },
+  vite:config           load: {
+  vite:config             filter: { id: /^vite\/preload\-helper\.js$/ },
+  vite:config             handler: [Function: handler]
+  vite:config           },
+  vite:config           transform: {
+  vite:config             filter: { code: /import\s*\(/ },
+  vite:config             handler: [AsyncFunction: handler]
+  vite:config           },
+  vite:config           renderChunk: [Function: renderChunk],
+  vite:config           generateBundle: [Function: generateBundle]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:esbuild-transpile',
+  vite:config           applyToEnvironment: [Function: applyToEnvironment],
+  vite:config           renderChunk: [AsyncFunction: renderChunk]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:terser',
+  vite:config           applyToEnvironment: [Function: applyToEnvironment],
+  vite:config           renderChunk: [AsyncFunction: renderChunk],
+  vite:config           closeBundle: [Function: closeBundle]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:license',
+  vite:config           generateBundle: [AsyncFunction: generateBundle]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:reporter',
+  vite:config           sharedDuringBuild: true,
+  vite:config           perEnvironmentStartEndDuringDev: true,
+  vite:config           renderStart: [Function: renderStart],
+  vite:config           renderChunk: [Function: renderChunk],
+  vite:config           generateBundle: [Function: generateBundle],
+  vite:config           writeBundle: [AsyncFunction: writeBundle]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:load-fallback',
+  vite:config           load: { handler: [AsyncFunction: handler] }
+  vite:config         }
+  vite:config       ]
+  vite:config     }
+  vite:config   },
+  vite:config   configFileDependencies: [],
+  vite:config   inlineConfig: {
+  vite:config     base: '/',
+  vite:config     build: {
+  vite:config       outDir: 'C:\\Users\\Administrator\\Desktop\\SSS\\studio\\dist',
+  vite:config       sourcemap: false,
+  vite:config       assetsDir: 'static',
+  vite:config       emptyOutDir: false,
+  vite:config       minify: 'esbuild',
+  vite:config       rollupOptions: {
+  vite:config         external: [],
+  vite:config         input: {
+  vite:config           sanity: 'C:\\Users\\Administrator\\Desktop\\SSS\\studio\\.sanity\\runtime\\app.js'
+  vite:config         },
+  vite:config         onwarn: [Function: onRollupWarn]
+  vite:config       },
+  vite:config       target: 'esnext'
+  vite:config     },
+  vite:config     cacheDir: 'node_modules/.sanity/vite',
+  vite:config     configFile: false,
+  vite:config     define: {
+  vite:config       __SANITY_BUILD_TIMESTAMP__: '1773635586095',
+  vite:config       __SANITY_STAGING__: false,
+  vite:config       'process.env.MODE': '"production"',
+  vite:config       'process.env.PKG_BUILD_VERSION': undefined,
+  vite:config       'process.env.SC_DISABLE_SPEEDY': '"false"',
+  vite:config       'process.env': {
+  vite:config         ALLUSERSPROFILE: 'C:\\ProgramData',
+  vite:config         APPDATA: 'C:\\Users\\Administrator\\AppData\\Roaming',
+  vite:config         'asl.log': 'Destination=file',
+  vite:config         ChocolateyInstall: 'C:\\ProgramData\\chocolatey',
+  vite:config         ChocolateyLastPathUpdate: '133763460659406051',
+  vite:config         ChocolateyToolsLocation: 'C:\\tools',
+  vite:config         COLOR: '1',
+  vite:config         CommonProgramFiles: 'C:\\Program Files\\Common Files',
+  vite:config         'CommonProgramFiles(x86)': 'C:\\Program Files (x86)\\Common Files',
+  vite:config         CommonProgramW6432: 'C:\\Program Files\\Common Files',
+  vite:config         COMPUTERNAME: 'STENSHQ',
+  vite:config         ComSpec: 'C:\\WINDOWS\\system32\\cmd.exe',
+  vite:config         DEBUG: 'vite:*,sanity:*',
+  vite:config         DriverData: 'C:\\Windows\\System32\\Drivers\\DriverData',
+  vite:config         EDITOR: 'C:\\WINDOWS\\notepad.exe',
+  vite:config         FPS_BROWSER_APP_PROFILE_STRING: 'Internet Explorer',
+  vite:config         FPS_BROWSER_USER_PROFILE_STRING: 'Default',
+  vite:config         HOME: 'C:\\Users\\Administrator',
+  vite:config         HOMEDRIVE: 'C:',
+  vite:config         HOMEPATH: '\\Users\\Administrator',
+  vite:config         INIT_CWD: 'C:\\Users\\Administrator\\Desktop\\SSS\\studio',
+  vite:config         LOCALAPPDATA: 'C:\\Users\\Administrator\\AppData\\Local',
+  vite:config         LOGONSERVER: '\\\\STENSHQ',
+  vite:config         nasm: 'C:\\Users\\stenp\\Desktop\\VenusOS',
+  vite:config         NODE: 'C:\\nvm4w\\nodejs\\node.exe',
+  vite:config         npm_command: 'exec',
+  vite:config         npm_config_cache: 'C:\\Users\\Administrator\\AppData\\Local\\npm-cache',
+  vite:config         npm_config_globalconfig: 'C:\\nvm4w\\nodejs\\etc\\npmrc',
+  vite:config         npm_config_global_prefix: 'C:\\nvm4w\\nodejs',
+  vite:config         npm_config_init_module: 'C:\\Users\\Administrator\\.npm-init.js',
+  vite:config         npm_config_local_prefix: 'C:\\Users\\Administrator\\Desktop\\SSS',
+  vite:config         npm_config_node_gyp: 'C:\\Users\\Administrator\\AppData\\Local\\nvm\\v22.17.1\\node_modules\\npm\\node_modules\\node-gyp\\bin\\node-gyp.js',
+  vite:config         npm_config_noproxy: '',
+  vite:config         npm_config_npm_version: '11.9.0',
+  vite:config         npm_config_prefix: 'C:\\nvm4w\\nodejs',
+  vite:config         npm_config_userconfig: 'C:\\Users\\Administrator\\.npmrc',
+  vite:config         npm_config_user_agent: 'npm/11.9.0 node/v22.17.1 win32 x64 workspaces/true',
+  vite:config         npm_execpath: 'C:\\Users\\Administrator\\AppData\\Local\\nvm\\v22.17.1\\node_modules\\npm\\bin\\npm-cli.js',
+  vite:config         npm_lifecycle_event: 'npx',
+  vite:config         npm_lifecycle_script: 'sanity',
+  vite:config         npm_node_execpath: 'C:\\nvm4w\\nodejs\\node.exe',
+  vite:config         npm_package_json: 'C:\\Users\\Administrator\\Desktop\\SSS\\studio\\package.json',
+  vite:config         npm_package_name: 'sss-monorepo',
+  vite:config         NUMBER_OF_PROCESSORS: '8',
+  vite:config         NVM_HOME: 'C:\\Users\\Administrator\\AppData\\Local\\nvm',
+  vite:config         NVM_SYMLINK: 'C:\\nvm4w\\nodejs',
+  vite:config         OneDrive: 'C:\\Users\\Administrator\\OneDrive',
+  vite:config         OS: 'Windows_NT',
+  vite:config         Path: 'C:\\Users\\Administrator\\Desktop\\SSS\\node_modules\\.bin;C:\\Users\\Administrator\\Desktop\\SSS\\studio\\node_modules\\.bin;C:\\Users\\Administrator\\Desktop\\SSS\\node_modules\\.bin;C:\\Users\\Administrator\\Desktop\\node_modules\\.bin;C:\\Users\\Administrator\\node_modules\\.bin;C:\\Users\\node_modules\\.bin;C:\\node_modules\\.bin;C:\\Users\\Administrator\\AppData\\Local\\nvm\\v22.17.1\\node_modules\\npm\\node_modules\\@npmcli\\run-script\\lib\\node-gyp-bin;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\Program Files\\dotnet\\;C:\\Users\\Administrator\\AppData\\Local\\nvm;C:\\nvm4w\\nodejs;C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python311\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\nodejs\\;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\cursor\\resources\\app\\bin;C:\\Program Files\\GitHub CLI\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\Program Files\\dotnet\\;C:\\Program Files\\Git\\cmd;C:\\Users\\Administrator\\AppData\\Local\\nvm;C:\\nvm4w\\nodejs;C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\NvDLISR;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python311\\;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Launcher\\;C:\\WhoIs;;C:\\Windows\\System32\\WindowsPowerShell\\v1.0";C:\\Users\\Administrator\\.dotnet\\tools;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\Administrator\\AppData\\Roaming\\npm;C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\WindowsApps',
+  vite:config         PATHEXT: '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC',
+  vite:config         PROCESSOR_ARCHITECTURE: 'AMD64',
+  vite:config         PROCESSOR_IDENTIFIER: 'AMD64 Family 23 Model 17 Stepping 0, AuthenticAMD',
+  vite:config         PROCESSOR_LEVEL: '23',
+  vite:config         PROCESSOR_REVISION: '1100',
+  vite:config         ProgramData: 'C:\\ProgramData',
+  vite:config         ProgramFiles: 'C:\\Program Files',
+  vite:config         'ProgramFiles(x86)': 'C:\\Program Files (x86)',
+  vite:config         ProgramW6432: 'C:\\Program Files',
+  vite:config         PROMPT: '$P$G',
+  vite:config         PSModulePath: 'C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules',
+  vite:config         PUBLIC: 'C:\\Users\\Public',
+  vite:config         SESSIONNAME: 'Console',
+  vite:config         SystemDrive: 'C:',
+  vite:config         SystemRoot: 'C:\\WINDOWS',
+  vite:config         TEMP: 'C:\\Users\\ADMINI~1\\AppData\\Local\\Temp',
+  vite:config         TMP: 'C:\\Users\\ADMINI~1\\AppData\\Local\\Temp',
+  vite:config         USERDOMAIN: 'STENSHQ',
+  vite:config         USERDOMAIN_ROAMINGPROFILE: 'STENSHQ',
+  vite:config         USERNAME: 'Administrator',
+  vite:config         USERPROFILE: 'C:\\Users\\Administrator',
+  vite:config         VBOX_HWVIRTEX_IGNORE_SVM_IN_USE: '1',
+  vite:config         windir: 'C:\\WINDOWS',
+  vite:config         __PSLockDownPolicy: '0'
+  vite:config       }
+  vite:config     },
+  vite:config     envPrefix: 'SANITY_STUDIO_',
+  vite:config     logLevel: 'silent',
+  vite:config     mode: 'production',
+  vite:config     plugins: [
+  vite:config       [
+  vite:config         {
+  vite:config           name: 'vite:react-babel',
+  vite:config           enforce: 'pre',
+  vite:config           config: [Function: config],
+  vite:config           configResolved: [Function: configResolved],
+  vite:config           options: [Function: options]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:react-refresh',
+  vite:config           enforce: 'pre',
+  vite:config           config: [Function: config],
+  vite:config           resolveId: {
+  vite:config             filter: { id: /^\/@react\-refresh$/ },
+  vite:config             handler: [Function: handler]
+  vite:config           },
+  vite:config           load: {
+  vite:config             filter: { id: /^\/@react\-refresh$/ },
+  vite:config             handler: [Function: handler]
+  vite:config           },
+  vite:config           transformIndexHtml: [Function: transformIndexHtml]
+  vite:config         },
+  vite:config         {
+  vite:config           name: 'vite:react-virtual-preamble',
+  vite:config           resolveId: {
+  vite:config             order: 'pre',
+  vite:config             filter: { id: /^@vitejs\/plugin\-react\/preamble$/ },
+  vite:config             handler: [Function: handler]
+  vite:config           },
+  vite:config           load: {
+  vite:config             filter: { id: /^@vitejs\/plugin\-react\/preamble$/ },
+  vite:config             handler: [Function: handler]
+  vite:config           }
+  vite:config         }
+  vite:config       ],
+  vite:config       {
+  vite:config         apply: 'serve',
+  vite:config         configureServer: [Function: configureServer],
+  vite:config         name: 'sanity/server/sanity-favicons'
+  vite:config       },
+  vite:config       {
+  vite:config         apply: 'serve',
+  vite:config         configureServer: [Function: configureServer],
+  vite:config         name: 'sanity/server/sanity-runtime-rewrite'
+  vite:config       },
+  vite:config       {
+  vite:config         apply: 'build',
+  vite:config         name: 'sanity/server/build-entries',
+  vite:config         buildStart: [Function: buildStart],
+  vite:config         generateBundle: [AsyncFunction: generateBundle]
+  vite:config       }
+  vite:config     ],
+  vite:config     resolve: {
+  vite:config       dedupe: [ 'react', 'react-dom', 'sanity', 'styled-components' ],
+  vite:config       alias: { 'react/jsx-runtime': 'react/jsx-runtime.js' },
+  vite:config       conditions: undefined,
+  vite:config       mainFields: undefined
+  vite:config     },
+  vite:config     root: 'C:\\Users\\Administrator\\Desktop\\SSS\\studio',
+  vite:config     server: {
+  vite:config       host: undefined,
+  vite:config       port: 3333,
+  vite:config       strictPort: true,
+  vite:config       warmup: { clientFiles: [ './.sanity/runtime/app.js' ] }
+  vite:config     },
+  vite:config     worker: { format: 'es' }
+  vite:config   },
+  vite:config   decodedBase: '/',
+  vite:config   rawBase: '/',
+  vite:config   publicDir: 'C:/Users/Administrator/Desktop/SSS/studio/public',
+  vite:config   command: 'build',
+  vite:config   isWorker: false,
+  vite:config   mainConfig: null,
+  vite:config   bundleChain: [],
+  vite:config   isProduction: true,
+  vite:config   css: {
+  vite:config     transformer: 'postcss',
+  vite:config     preprocessorMaxWorkers: true,
+  vite:config     devSourcemap: false
+  vite:config   },
+  vite:config   json: { namedExports: true, stringify: 'auto' },
+  vite:config   builder: undefined,
+  vite:config   preview: {
+  vite:config     port: 4173,
+  vite:config     strictPort: true,
+  vite:config     host: undefined,
+  vite:config     allowedHosts: [],
+  vite:config     https: undefined,
+  vite:config     open: false,
+  vite:config     proxy: undefined,
+  vite:config     cors: {
+  vite:config       origin: /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/
+  vite:config     },
+  vite:config     headers: {}
+  vite:config   },
+  vite:config   envDir: 'C:/Users/Administrator/Desktop/SSS/studio',
+  vite:config   env: { BASE_URL: '/', MODE: 'production', DEV: false, PROD: true },
+  vite:config   assetsInclude: [Function: assetsInclude],
+  vite:config   logger: {
+  vite:config     hasWarned: true,
+  vite:config     info: [Function: info],
+  vite:config     warn: [Function: warn],
+  vite:config     warnOnce: [Function: warnOnce],
+  vite:config     error: [Function: error],
+  vite:config     clearScreen: [Function: clearScreen],
+  vite:config     hasErrorLogged: [Function: hasErrorLogged]
+  vite:config   },
+  vite:config   packageCache: Map(1) {
+  vite:config     'fnpd_C:/Users/Administrator/Desktop/SSS/studio' => {
+  vite:config       dir: 'C:/Users/Administrator/Desktop/SSS/studio',
+  vite:config       data: {
+  vite:config         name: 'sss',
+  vite:config         private: true,
+  vite:config         version: '1.0.0',
+  vite:config         main: 'package.json',
+  vite:config         license: 'UNLICENSED',
+  vite:config         scripts: {
+  vite:config           dev: 'sanity dev',
+  vite:config           start: 'sanity start',
+  vite:config           build: 'sanity build',
+  vite:config           typegen: 'sanity typegen generate',
+  vite:config           extract: 'sanity schema extract',
+  vite:config           predeploy: 'npm run typegen && npm run extract',
+  vite:config           deploy: 'sanity deploy',
+  vite:config           'deploy-graphql': 'sanity graphql deploy'
+  vite:config         },
+  vite:config         keywords: [ 'sanity' ],
+  vite:config         dependencies: {
+  vite:config           '@sanity/vision': '^5.12.0',
+  vite:config           react: '^19.1.0',
+  vite:config           'react-dom': '^19.1.0',
+  vite:config           sanity: '^5.12.0',
+  vite:config           'styled-components': '^6.1.18'
+  vite:config         },
+  vite:config         devDependencies: {
+  vite:config           '@sanity/eslint-config-studio': '^6.0.0',
+  vite:config           '@types/react': '^19.1.0',
+  vite:config           eslint: '^9.28.0',
+  vite:config           prettier: '^3.5.0',
+  vite:config           typescript: '^5.8.0'
+  vite:config         },
+  vite:config         overrides: {
+  vite:config           react: '$react',
+  vite:config           'react-dom': '$react-dom',
+  vite:config           'styled-components': '$styled-components'
+  vite:config         },
+  vite:config         prettier: {
+  vite:config           semi: false,
+  vite:config           printWidth: 100,
+  vite:config           bracketSpacing: false,
+  vite:config           singleQuote: true
+  vite:config         }
+  vite:config       },
+  vite:config       hasSideEffects: [Function: hasSideEffects],
+  vite:config       setResolvedCache: [Function: setResolvedCache],
+  vite:config       getResolvedCache: [Function: getResolvedCache]
+  vite:config     },
+  vite:config     set: [Function (anonymous)]
+  vite:config   },
+  vite:config   appType: 'spa',
+  vite:config   experimental: {
+  vite:config     importGlobRestoreExtension: false,
+  vite:config     renderBuiltUrl: undefined,
+  vite:config     hmrPartialAccept: false
+  vite:config   },
+  vite:config   future: undefined,
+  vite:config   ssr: {
+  vite:config     target: 'node',
+  vite:config     optimizeDeps: { esbuildOptions: { preserveSymlinks: false } },
+  vite:config     resolve: { conditions: undefined, externalConditions: undefined }
+  vite:config   },
+  vite:config   dev: {
+  vite:config     warmup: [],
+  vite:config     sourcemap: { js: true },
+  vite:config     sourcemapIgnoreList: [Function: isInNodeModules],
+  vite:config     preTransformRequests: false,
+  vite:config     createEnvironment: [Function: defaultCreateDevEnvironment],
+  vite:config     recoverable: false,
+  vite:config     moduleRunnerTransform: false
+  vite:config   },
+  vite:config   webSocketToken: 'eIPtE8sgxzAJ',
+  vite:config   getSortedPlugins: [Function: getSortedPlugins],
+  vite:config   getSortedPluginHooks: [Function: getSortedPluginHooks],
+  vite:config   createResolver: [Function: createResolver],
+  vite:config   fsDenyGlob: [Function: arrayMatcher],
+  vite:config   safeModulePaths: Set(0) {},
+  vite:config   [Symbol(vite:resolved-config)]: true
+  vite:config } +0ms
+× Build Sanity Studio
+  sanity:cli:build Failed to build Sanity Studio {
+  error: [commonjs--resolver] Missing "./jsx-runtime.js" specifier in "react" package
+      at e (file:///C:/Users/Administrator/Desktop/SSS/node_modules/vite/dist/node/chunks/config.js:6651:8)
+      at n (file:///C:/Users/Administrator/Desktop/SSS/node_modules/vite/dist/node/chunks/config.js:6663:14)
+      at o (file:///C:/Users/Administrator/Desktop/SSS/node_modules/vite/dist/node/chunks/config.js:6691:10)
+      at resolveExportsOrImports (file:///C:/Users/Administrator/Desktop/SSS/node_modules/vite/dist/node/chunks/config.js:32827:45)
+      at resolveDeepImport (file:///C:/Users/Administrator/Desktop/SSS/node_modules/vite/dist/node/chunks/config.js:32841:22)
+      at tryNodeResolve (file:///C:/Users/Administrator/Desktop/SSS/node_modules/vite/dist/node/chunks/config.js:32716:70)
+      at Object.handler (file:///C:/Users/Administrator/Desktop/SSS/node_modules/vite/dist/node/chunks/config.js:32555:16)
+      at Object.handler (file:///C:/Users/Administrator/Desktop/SSS/node_modules/vite/dist/node/chunks/config.js:33706:13)
+      at file:///C:/Users/Administrator/Desktop/SSS/node_modules/rollup/dist/es/shared/node-entry.js:22571:40
+      at async PluginDriver.hookFirstAndGetPlugin (file:///C:/Users/Administrator/Desktop/SSS/node_modules/rollup/dist/es/shared/node-entry.js:22453:28)
+      at async resolveId (file:///C:/Users/Administrator/Desktop/SSS/node_modules/rollup/dist/es/shared/node-entry.js:20912:26)
+      at async ModuleLoader.resolveId (file:///C:/Users/Administrator/Desktop/SSS/node_modules/rollup/dist/es/shared/node-entry.js:21358:15)
+      at async Object.resolveId (file:///C:/Users/Administrator/Desktop/SSS/node_modules/vite/dist/node/chunks/config.js:4154:21)
+      at async PluginDriver.hookFirstAndGetPlugin (file:///C:/Users/Administrator/Desktop/SSS/node_modules/rollup/dist/es/shared/node-entry.js:22453:28)
+      at async resolveId (file:///C:/Users/Administrator/Desktop/SSS/node_modules/rollup/dist/es/shared/node-entry.js:20912:26)
+      at async ModuleLoader.resolveId (file:///C:/Users/Administrator/Desktop/SSS/node_modules/rollup/dist/es/shared/node-entry.js:21358:15)
+      at async Object.viteAliasCustomResolver (file:///C:/Users/Administrator/Desktop/SSS/node_modules/vite/dist/node/chunks/config.js:28512:9)
+      at async PluginDriver.hookFirstAndGetPlugin (file:///C:/Users/Administrator/Desktop/SSS/node_modules/rollup/dist/es/shared/node-entry.js:22453:28)
+      at async resolveId (file:///C:/Users/Administrator/Desktop/SSS/node_modules/rollup/dist/es/shared/node-entry.js:20912:26)
+      at async ModuleLoader.resolveId (file:///C:/Users/Administrator/Desktop/SSS/node_modules/rollup/dist/es/shared/node-entry.js:21358:15)
+      at async Object.resolveId (file:///C:/Users/Administrator/Desktop/SSS/node_modules/vite/dist/node/chunks/config.js:4154:21)
+      at async PluginDriver.hookFirstAndGetPlugin (file:///C:/Users/Administrator/Desktop/SSS/node_modules/rollup/dist/es/shared/node-entry.js:22453:28)
+      at async resolveId (file:///C:/Users/Administrator/Desktop/SSS/node_modules/rollup/dist/es/shared/node-entry.js:20912:26)
+      at async ModuleLoader.resolveId (file:///C:/Users/Administrator/Desktop/SSS/node_modules/rollup/dist/es/shared/node-entry.js:21358:15)
+      at async file:///C:/Users/Administrator/Desktop/SSS/node_modules/rollup/dist/es/shared/node-entry.js:21670:50
+      at async Promise.all (index 4) {
+    code: 'PLUGIN_ERROR',
+    plugin: 'commonjs--resolver',
+    hook: 'resolveId',
+    watchFiles: [
+      'C:\\Users\\Administrator\\Desktop\\SSS\\studio\\package.json',
+      'C:/Users/Administrator/Desktop/SSS/studio/.sanity/runtime/app.js',
+      'C:/Users/Administrator/Desktop/SSS/studio/sanity.config.ts',
+      'C:\\Users\\Administrator\\Desktop\\SSS\\studio\\.sanity\\runtime\\app.js',
+      'C:/Users/Administrator/Desktop/SSS/node_modules/sanity/lib/index.js',
+      'C:/Users/Administrator/Desktop/SSS/studio/schemaTypes/index.ts',
+      'C:/Users/Administrator/Desktop/SSS/node_modules/@sanity/vision/lib/index.js',
+      'C:/Users/Administrator/Desktop/SSS/node_modules/sanity/lib/structure.js',
+      'C:/Users/Administrator/Desktop/SSS/studio/schemaTypes/tag.ts',
+      'C:/Users/Administrator/Desktop/SSS/studio/schemaTypes/location.ts',
+      'C:/Users/Administrator/Desktop/SSS/studio/schemaTypes/gallery.ts'
+    ]
+  }
+} +4s
+ »   Error: Failed to build Sanity Studio: [commonjs--resolver] Missing "./jsx-runtime.js" specifier in "react" package
+
+C:\Users\Administrator\Desktop\SSS\studio>

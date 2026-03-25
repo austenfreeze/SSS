@@ -1,71 +1,60 @@
 import { groq } from "next-sanity";
 
 /**
- * Deep-dive fetch for PhotoView (Technical EXIF + Palette)
- * Targeted by Slug for individual archival analysis.
+ * Shared fragment to ensure consistency across queries.
+ * We fetch the _id for all referenced entities to use as React keys.
  */
-export const INDIVIDUAL_PHOTO_QUERY = groq`*[_type == "photo" && slug.current == $slug][0] {
-  ...,
-  "slug": slug.current,
-  "mainImage": image.asset->{
-    ...,
-    metadata {
-      exif,
-      palette,
-      dimensions,
-      lqip
-    }
-  },
-  context {
-    narrative,
-    caption,
-    intent,
-    isPublic,
-    isSensitive
-  },
-  associations {
-    capturedDate,
-    location->{ name, city, gps },
-    tags[]->{ title, "slug": slug.current },
-    people[]->{ name, "slug": slug.current, image }
-  }
-}`;
-
-/**
- * Filtered for the Public Archive
- * Optimized for speed: Only basic image data and metadata required for cards.
- */
-export const PUBLIC_PHOTOS_QUERY = groq`*[_type == "photo" && context.isPublic == true && context.isSensitive != true] | order(associations.capturedDate desc) {
+const PHOTO_FIELDS = groq`
   _id,
-  image,
   "slug": slug.current,
-  "lqip": image.asset->metadata.lqip,
-  context {
-    caption,
-    intent
-  },
+  image { asset->{ _id, metadata { lqip, palette, dimensions, exif } } },
+  context { caption, narrative, intent, isPublic, isSensitive },
   associations {
-    capturedDate,
-    location->{ name, city },
-    "peopleCount": count(people)
+    dateConfig { precision, yearOnly, date },
+    location->{ _id, name, city },
+    people[]->{ _id, name, "slug": slug.current },
+    tags[]->{ _id, title, "slug": slug.current }
   }
-}`;
+`;
 
 /**
- * The "Engine Control" fetch - includes administrative flags
+ * Public Archive Query
+ * Optimized for card display with explicit _id fetching for people and tags.
  */
-export const ADMIN_ALL_PHOTOS_QUERY = groq`*[_type == "photo"] | order(_createdAt desc) {
+// src/sanity/queries.ts
+
+export const PUBLIC_PHOTOS_QUERY = groq`
+  *[_type == "photo" && context.isPublic == true && context.isSensitive != true] 
+  | order(associations.dateConfig.date desc, associations.dateConfig.yearOnly desc) {
     _id,
-    _type,
     image,
     "slug": slug.current,
     context {
-      caption,
+      intent,
       isPublic,
       isSensitive
     },
     associations {
-      capturedDate,
-      location->{ name, city }
+      dateConfig {
+        precision,
+        yearOnly,
+        date
+      },
+      location->{ _id, name, city },
+      // The filter [0...20] is optional, but adding it ensures we 
+      // aren't fetching a massive array if there's a data loop
+      "people": people[]->{ _id, name } | order(name asc), 
+      "tags": tags[]->{ _id, title }
     }
-  }`;
+  }
+`;
+
+/**
+ * Individual Photo Query
+ * Deep-dive fetch using the shared PHOTO_FIELDS fragment.
+ */
+export const INDIVIDUAL_PHOTO_QUERY = groq`
+  *[_type == "photo" && slug.current == $slug][0] {
+    ${PHOTO_FIELDS}
+  }
+`;

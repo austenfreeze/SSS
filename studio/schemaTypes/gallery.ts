@@ -1,27 +1,26 @@
-// schemaTypes/gallery.ts
+import { defineType, defineField } from 'sanity'
 import { ImagesIcon } from '@sanity/icons'
 
-export default {
+export default defineType({
   name: 'gallery',
   title: 'Gallery',
   type: 'document',
   icon: ImagesIcon,
   fields: [
-    { name: 'title', title: 'Gallery Title', type: 'string', validation: (Rule: any) => Rule.required() },
-    { name: 'slug', title: 'Slug', type: 'slug', options: { source: 'title' } },
-    { name: 'description', title: 'Description', type: 'text' },
-    {
+    defineField({ name: 'title', type: 'string', validation: (Rule) => Rule.required() }),
+    defineField({ name: 'slug', type: 'slug', options: { source: 'title' } }),
+    defineField({ name: 'description', type: 'text' }),
+    defineField({
       name: 'mainImage',
       title: 'Cover Image',
       type: 'image',
       options: { hotspot: true }
-    },
-    {
+    }),
+    defineField({
       name: 'photos',
       title: 'Photos in Gallery',
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'photo' }] }],
-      description: 'Add and reorder photos directly in this gallery.'
-    },
+    }),
   ],
-}
+})

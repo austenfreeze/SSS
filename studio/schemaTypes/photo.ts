@@ -1,4 +1,3 @@
-// schemaTypes/photo.ts
 import { defineType, defineField } from 'sanity'
 import { ImageIcon } from '@sanity/icons'
 
@@ -11,96 +10,87 @@ export default defineType({
     defineField({
       name: 'image',
       type: 'image',
-      options: { hotspot: true, metadata: ['exif', 'location', 'palette', 'lqip'] },
+      options: { 
+        hotspot: true,
+        metadata: ['exif', 'location', 'palette', 'lqip'] 
+      },
       validation: (Rule) => Rule.required(),
     }),
-defineField({
-  name: 'slug',
-  type: 'slug',
-  title: 'URL Slug',
-  description: 'Generated from the original local filename.',
-  options: {
-    source: async (doc: any, context: any) => {
-      // 1. Get the client from context to fetch the asset data
-      const { getClient } = context;
-      const client = getClient({ apiVersion: '2024-03-15' });
-
-      // 2. If no image is selected yet, fallback to a placeholder
-      if (!doc.image?.asset?._ref) {
-        return doc.context?.caption || 'processing-asset';
-      }
-
-      // 3. Fetch the actual original filename from the Sanity asset store
-      const asset = await client.fetch(
-        `*[_id == $ref][0]{originalFilename}`, 
-        { ref: doc.image.asset._ref }
-      );
-
-      // 4. Return the filename (minus the extension) or the hash if missing
-      return asset?.originalFilename 
-        ? asset.originalFilename.replace(/\.[^/.]+$/, "") 
-        : `photo-${doc.image.asset._ref.split('-')[1]}`;
-    },
-    maxLength: 96,
-  },
-  validation: (Rule) => Rule.required(),
-}),
     defineField({
       name: 'context',
-      title: 'Contextual Data',
       type: 'photoCaption',
     }),
+   defineField({
+  name: 'slug',
+  type: 'slug',
+  options: {
+    source: 'image.asset.originalFilename', // Pulls the actual filename (e.g., DSC0123.jpg)
+    slugify: (input) => input
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/\.[^/.]+$/, "") // Removes the extension (.jpg)
+  },
+}),
     defineField({
       name: 'associations',
+      title: 'Associations',
       type: 'object',
-      fieldsets: [{ name: 'metadata', title: 'Archive Metadata' }],
       fields: [
-        { name: 'capturedDate', title: 'Date Taken', type: 'datetime' },
-        { 
+        defineField({
+          name: 'dateConfig',
+          type: 'object',
+          options: { columns: 2 },
+          fields: [
+            defineField({ 
+              name: 'precision', 
+              type: 'string',
+              options: { list: [{ title: 'Year', value: 'year' }, { title: 'Exact', value: 'exact' }] }
+            }),
+            defineField({ name: 'yearOnly', title: 'Year (YYYY)', type: 'number' }),
+            defineField({ name: 'date', title: 'Full Date', type: 'date' })
+          ]
+        }),
+        defineField({ 
           name: 'people', 
           type: 'array', 
-          of: [{ type: 'reference', to: [{ type: 'person' }] }] 
-        },
-        { name: 'location', type: 'reference', to: [{ type: 'location' }] },
-        { 
+          of: [{ type: 'reference', to: [{ type: 'person' }] }],
+        }),
+        defineField({ name: 'location', type: 'reference', to: [{ type: 'location' }] }),
+        defineField({ 
           name: 'tags', 
           type: 'array', 
-          of: [{ type: 'reference', to: [{ type: 'tag' }] }] 
-        },
-        // Direct Gallery Reference (Manual add from here)
-        {
-          name: 'galleries',
-          title: 'Manual Gallery Assignment',
-          type: 'array',
-          of: [{ type: 'reference', to: [{ type: 'gallery' }] }],
-          description: 'Manually add this photo to galleries.'
-        }
+          of: [{ type: 'reference', to: [{ type: 'tag' }] }],
+        }),
       ]
     }),
-    // Virtual Field: Shows where this photo appears
-    defineField({
-      name: 'referencedIn',
-      title: 'Appears In (Automated)',
-      type: 'array',
-      readOnly: true,
-      of: [{ type: 'reference', to: [{ type: 'gallery' }] }],
-      description: 'Galleries that have included this photo via the Gallery manager.',
-      // In a real Sanity Studio, we'd use a Custom Input component to fetch this list via GROQ.
-    })
   ],
   preview: {
     select: {
-      title: 'context.caption',
-      media: 'image',
+      caption: 'context.caption',
       intent: 'context.intent',
-      date: 'associations.capturedDate'
+      year: 'associations.dateConfig.yearOnly',
+      exactDate: 'associations.dateConfig.date',
+      precision: 'associations.dateConfig.precision',
+      locationName: 'associations.location.name',
+      filename: 'slug.current',
+      media: 'image',
     },
-    prepare({ title, media, intent, date }) {
-      const year = date ? new Date(date).getFullYear() : 'No Date';
+    prepare({ caption, intent, year, exactDate, precision, locationName, filename, media }) {
+      // Fixes the "one day early" bug by forcing local time parsing
+      const dateDisplay = precision === 'exact' && exactDate
+        ? new Date(exactDate.replace(/-/g, '/')).toLocaleDateString()
+        : year;
+
+      const segments = [
+        dateDisplay,
+        intent ? intent.charAt(0).toUpperCase() + intent.slice(1) : null,
+        locationName
+      ].filter(Boolean);
+
       return {
-        title: title || 'Untitled Record',
-        subtitle: `${intent?.toUpperCase() || 'ARCHIVE'} — ${year}`,
-        media
+        title: caption || filename || 'Untitled Record',
+        subtitle: segments.join(' • '),
+        media: media || ImageIcon,
       }
     }
   }

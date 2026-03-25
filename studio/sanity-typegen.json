@@ -1,0 +1,7 @@
+{
+  "path": "../frontend/src/sanity/**/*.ts",
+  "generates": "../frontend/src/sanity/sanity.types.ts",
+  "overload": {
+    "schema": "./schema.json"
+  }
+}

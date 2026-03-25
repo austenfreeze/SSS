@@ -1,4 +1,3 @@
-// schemas/index.ts
 import photo from './photo'
 import person from './person'
 import tag from './tag'
@@ -12,6 +11,5 @@ export const schemaTypes = [
   tag,
   location,
   gallery,
-photoCaption,
-  // Add more as we build them: document, video, snippet, etc.
+  photoCaption,
 ]

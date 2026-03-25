@@ -9,18 +9,16 @@ import { useUser } from "@clerk/nextjs";
 
 export default function MediaCard({ photo, isAdmin = false }: { photo: any, isAdmin?: boolean }) {
   const { user } = useUser();
-  
-  // Hard check: Is this user an admin via Clerk metadata?
   const isActualAdmin = isAdmin && user?.publicMetadata?.role === "admin";
   
   const isPublic = photo.context?.isPublic ?? false;
   const isSensitive = photo.context?.isSensitive ?? false;
   
-  const displayTitle = 
-    photo.context?.narrative || 
-    photo.associations?.location?.name || 
-    photo.context?.intent || 
-    "Archival Capture";
+  // Handling the refined dateConfig
+  const dateConfig = photo.associations?.dateConfig;
+  const displayDate = dateConfig?.precision === 'exact' && dateConfig?.date
+    ? new Date(dateConfig.date.replace(/-/g, '/')).getFullYear()
+    : dateConfig?.yearOnly || '0000';
 
   const slug = photo.slug;
 
@@ -35,71 +33,85 @@ export default function MediaCard({ photo, isAdmin = false }: { photo: any, isAd
 
   return (
     <CardWrapper>
-      <div className="relative flex flex-col h-full bg-zinc-900/50 border border-zinc-800 rounded-lg overflow-hidden transition-all duration-300 group-hover/card:border-zinc-700 group-hover/card:bg-zinc-900">
+      <div className="relative flex flex-col h-full bg-zinc-900/40 border border-zinc-800/50 hover:border-zinc-500/50 transition-all duration-500 group/card">
         
-        {/* Admin Badges - Only visible to verified Admin */}
+        {/* Admin Badges */}
         {isActualAdmin && (
-          <div className="absolute top-3 right-3 z-20 flex gap-1.5">
-             {isSensitive && (
-              <span className="bg-yellow-500/90 text-[9px] font-black px-1.5 py-0.5 rounded text-black uppercase tracking-tighter">
-                Sensitive
-              </span>
-            )}
-            <span className={`px-1.5 py-0.5 text-[9px] font-black rounded uppercase tracking-tighter ${!isPublic ? 'bg-red-500 text-white' : 'bg-green-500 text-black'}`}>
-              {isPublic ? 'Public' : 'Private'}
+          <div className="absolute top-2 left-2 z-20 flex gap-1">
+            <span className={`px-1.5 py-0.5 text-[8px] font-black uppercase tracking-tighter ${!isPublic ? 'bg-red-600 text-white' : 'bg-emerald-500 text-black'}`}>
+              {isPublic ? 'Live' : 'Hidden'}
             </span>
           </div>
         )}
         
-        {/* Image Display */}
-        <div className="relative aspect-square overflow-hidden bg-zinc-950">
+        {/* Media Block */}
+        <div className="relative aspect-[4/5] overflow-hidden bg-black">
           {photo.image ? (
             <Image 
-              src={urlFor(photo.image).width(800).auto('format').url()} 
-              alt={displayTitle}
+              src={urlFor(photo.image).width(600).auto('format').url()} 
+              alt="Archival Asset"
               fill
-              className={`object-cover transition-transform duration-700 ${!isActualAdmin ? 'group-hover/card:scale-105' : ''} ${isSensitive && isActualAdmin ? 'blur-2xl opacity-40 scale-110' : ''}`}
-              unoptimized
+              className={`object-cover transition-transform duration-700 ${!isActualAdmin ? 'group-hover/card:scale-105' : ''} ${isSensitive && isActualAdmin ? 'blur-xl opacity-50' : ''}`}
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-zinc-800 font-mono text-xs">NO_IMAGE_DATA</div>
+            <div className="w-full h-full flex items-center justify-center text-zinc-800 font-mono text-[9px]">NULL_ASSET</div>
           )}
         </div>
 
+        {/* System Metadata Panel */}
         <div className="p-4 flex flex-col flex-grow">
-          <div className="flex justify-between items-baseline mb-2">
-            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
-              {photo.context?.intent || 'Archive'}
+          {/* Header Row: Location & Date */}
+          <div className="flex justify-between items-baseline mb-4 border-b border-zinc-800 pb-2">
+            <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest truncate max-w-[70%]">
+              {photo.associations?.location?.name || 'Unspecified Loc'}
             </span>
-            {photo.associations?.capturedDate && (
-              <span className="text-[10px] font-mono text-zinc-600">
-                {new Date(photo.associations.capturedDate).getFullYear()}
-              </span>
-            )}
+            <span className="text-[10px] font-mono text-zinc-600">
+              {displayDate}
+            </span>
           </div>
 
-          <h3 className="text-sm font-semibold text-zinc-200 line-clamp-1 mb-3">
-            {displayTitle}
-          </h3>
-          
-          {/* Internal Toggle for Admin View - Only visible to verified Admin */}
-          {isActualAdmin && (
-            <div className="mt-auto pt-2 border-t border-zinc-800/50">
-              <ToggleButton id={photo._id} initialState={isPublic} />
-            </div>
-          )}
+          {/* Core Entities: People */}
+          <div className="flex flex-wrap gap-1.5 mb-4">
+           {photo.associations?.people?.length > 0 ? (
+  photo.associations.people.map((person: any, index: number) => (
+    <span 
+      // Using a composite key to guarantee uniqueness even if the ID is duplicated
+      key={`${person._id || 'p'}-${index}`} 
+      className="text-[9px] font-medium text-zinc-300 bg-white/5 border border-white/10 px-2 py-0.5 rounded-sm"
+    >
+      {person.name}
+    </span>
+  ))
+) : (
+  <span className="text-[9px] font-mono text-zinc-700 uppercase italic">No entities referenced</span>
+)}
+          </div>
 
-          {!isActualAdmin && photo.associations?.people && (
-            <div className="mt-auto flex flex-wrap gap-1.5 pt-2 border-t border-zinc-800/50">
-              {photo.associations.people.slice(0, 3).map((person: any) => (
-                <span key={person.name} className="text-[9px] text-zinc-400 bg-zinc-800/80 px-2 py-0.5 rounded-sm">
-                  {person.name}
+          {/* Footer Metadata: Tags & Intent */}
+          <div className="mt-auto pt-3 border-t border-zinc-800/50 flex justify-between items-center">
+            <div className="flex gap-2">
+              {photo.associations?.tags?.slice(0, 2).map((tag: any, index: number) => (
+                <span 
+                  key={tag._id || `tag-${index}`} 
+                  className="text-[9px] font-mono text-zinc-500 tracking-tighter"
+                >
+                  #{tag.title?.toLowerCase() || 'untitled'}
                 </span>
               ))}
+            </div>
+            <span className="text-[9px] font-mono text-zinc-600 italic uppercase">
+              {photo.context?.intent || 'Archive'}
+            </span>
+          </div>
+          
+          {/* Admin Management Toggle */}
+          {isActualAdmin && (
+            <div className="mt-4 pt-3 border-t border-zinc-800">
+              <ToggleButton id={photo._id} initialState={isPublic} />
             </div>
           )}
         </div>
       </div>
     </CardWrapper>
-  )
+  );
 }

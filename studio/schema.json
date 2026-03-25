@@ -19,6 +19,13 @@
           },
           "optional": true
         },
+        "narrative": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": true
+        },
         "intent": {
           "type": "objectAttribute",
           "value": {
