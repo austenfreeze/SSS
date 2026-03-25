@@ -1,14 +1,21 @@
 
 # PROJECT MANIFEST: SSS-MONOREPO
-**Last Sync:** 3/25/2026, 5:12:54 PM | **Branch:** main
+**Last Sync:** 3/25/2026, 5:38:48 PM | **Branch:** main
 
-## 🎯 Current Intelligence
-- **Status:** Active Development
-- **Main Goal:** Universal Matching Filenames & Archival Integrity
+## 🎨 Design System & Assets
+- **Aesthetic:** Tabloid-Noir / Conspiracy Map
+- **Palette:** Black (#000000), Newsprint (#F2F2F2), Archive Red (#FF3E00)
+- **Assets:** Ripped paper vectors, tabloid frames, and conspiracy map overlays available in /static.
 
-## 📂 Automatic Directory Map
+## 🧠 Database Intelligence (Sanity)
+- **Active Schemas:** gallery, location, logType, person, photo, photoCaption, tag
+- **AI Assist:** Enabled on Photo Narrative/Caption fields.
+- **Filenames:** Universal matching enforced via slug logic (Source: originalFilename).
+
+## 📂 Directory Map
 ```text
 .gitignore
+CONTEXT.md
 frontend/.gitignore
 frontend/README.md
 frontend/app/(admin)/dashboard/layout.tsx
@@ -49,10 +56,11 @@ package-lock.json
 package.json
 studio/.gitignore
 studio/eslint.config.mjs
+studio/output.txt
 studio/package.json
+studio/sanity-typegen.json
 studio/sanity.cli.ts
 studio/sanity.config.ts
-studio/sanity.types.ts
 studio/schema.json
 studio/schemaTypes/gallery.ts
 studio/schemaTypes/index.ts
@@ -65,10 +73,12 @@ studio/schemaTypes/tag.ts
 studio/static/.gitkeep
 studio/structure.ts
 studio/tsconfig.json
+sync-context.mjs
 
 ```
 
-## 📝 Recent Commit History (Last 5)
+## 📝 Recent Activity
+- Progress Update (ca5af7c)
 - feat: align archival photo deep-dive and fix clerk deprecated props (780e79f)
 - fix: remove deprecated clerk prop to satisfy build logs (35769b4)
 - Build: Finalize hybrid path architecture and resolve Clerk/Sanity imports (995ade8)

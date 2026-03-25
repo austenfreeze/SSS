@@ -4,6 +4,8 @@ import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 import {myStructure} from './structure'
+import {DashboardTool} from './components/DashboardTool'
+import { assist } from '@sanity/assist'
 
 export default defineConfig({
   name: 'default',
@@ -16,6 +18,16 @@ export default defineConfig({
       structure: myStructure,
     }),
     visionTool(),
+assist(),
+  ],
+
+tools: (prev) => [
+    ...prev,
+    {
+      name: 'dashboard',
+      title: 'Control Center',
+      component: DashboardTool,
+    },
   ],
 
   schema: {

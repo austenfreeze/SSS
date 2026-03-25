@@ -16,10 +16,17 @@ export default defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: 'context',
-      type: 'photoCaption',
-    }),
+  defineField({
+  name: 'context',
+  type: 'photoCaption',
+  options: {
+    aiAssist: {
+      imageDescriptionField: 'caption',
+      // This instruction tells the AI how to "think" like your archive
+      instructions: "Analyze this image as a forensic archivist. Use the filename and metadata to determine the era. If it looks like a document, focus on text. If it's a photo, focus on the 'vibe' and lighting. Match the 'Tabloid-Noir' tone."
+    }
+  },
+}),
    defineField({
   name: 'slug',
   type: 'slug',
