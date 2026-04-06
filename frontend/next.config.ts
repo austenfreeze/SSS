@@ -12,9 +12,7 @@ const nextConfig: NextConfig = {
     ],
   },
   transpilePackages: ["next-sanity", "@sanity/image-url"],
-  turbopack: {
-    root: process.cwd(),
-  },
+  allowedDevOrigins: ["*.vercel.run"],
 };
 
 export default nextConfig;
