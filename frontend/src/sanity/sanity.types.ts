@@ -312,103 +312,27 @@ export type AllSanitySchemaTypes =
   | Geopoint;
 
 // Source: ../frontend/src/sanity/queries.ts
-// Variable: INDIVIDUAL_PHOTO_QUERY
-// Query: *[_type == "photo" && slug.current == $slug][0] {  ...,  "slug": slug.current,  "metadata": image.asset->metadata {    exif,    palette,    dimensions,    lqip  },  context {    narrative,    caption,    intent,    isPublic,    isSensitive  },  associations {    capturedDate,    location->{ name, city, gps },    tags[]->{ title, "slug": slug.current },    people[]->{ name, "slug": slug.current, image }  }}
-export type INDIVIDUAL_PHOTO_QUERY_RESULT = {
-  _id: string;
-  _type: "photo";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  image?: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  slug: string | null;
-  context: {
-    narrative: string | null;
-    caption: string | null;
-    intent: "editorial" | "personal" | "portfolio" | "social" | "work" | null;
-    isPublic: boolean | null;
-    isSensitive: boolean | null;
-  } | null;
-  associations: {
-    capturedDate: string | null;
-    location: {
-      name: string | null;
-      city: string | null;
-      gps: null;
-    } | null;
-    tags: Array<{
-      title: string | null;
-      slug: string | null;
-    }> | null;
-    people: Array<{
-      name: string | null;
-      slug: string | null;
-      image: null;
-    }> | null;
-  } | null;
-  referencedIn?: Array<
-    {
-      _key: string;
-    } & GalleryReference
-  >;
-  metadata: {
-    exif: null;
-    palette: SanityImagePalette | null;
-    dimensions: SanityImageDimensions | null;
-    lqip: string | null;
-  } | null;
-} | null;
+// Variable: ADMIN_QUERY
+// Query: *[_type == "adminProfile"][0]{  userHandle,  systemRole,  bio,  socialLinks,  "identity": idenity->{    name,    image,    roles,    bio,    connections  }}
+export type ADMIN_QUERY_RESULT = null;
 
 // Source: ../frontend/src/sanity/queries.ts
 // Variable: PUBLIC_PHOTOS_QUERY
-// Query: *[_type == "photo" && context.isPublic == true && context.isSensitive != true] | order(associations.capturedDate desc) {  _id,  image,  "slug": slug.current,  context {    narrative,    caption,    intent  },  associations {    capturedDate,    location->{ name, city },    people[]->{ name }  }}
+// Query: *[_type == "photo" && context.isPublic == true && context.isSensitive != true]   | order(_createdAt desc) {      _id,  "slug": slug.current,  image { asset->{ _id, metadata { lqip, palette, dimensions, exif } } },  context { caption, narrative, intent, isPublic, isSensitive },  "associations": {    "dateConfig": years[0]->{ title }, // Mapping reference to 'year' schema    "location": locations[0]->{ _id, name, city },    "people": people[]->{ _id, name, "slug": slug.current },    "tags": tags[]->{ _id, title, "slug": slug.current }  }  }
 export type PUBLIC_PHOTOS_QUERY_RESULT = Array<{
   _id: string;
-  image: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  } | null;
   slug: string | null;
-  context: {
-    narrative: string | null;
-    caption: string | null;
-    intent: "editorial" | "personal" | "portfolio" | "social" | "work" | null;
-  } | null;
-  associations: {
-    capturedDate: string | null;
-    location: {
-      name: string | null;
-      city: string | null;
+  image: {
+    asset: {
+      _id: string;
+      metadata: {
+        lqip: string | null;
+        palette: SanityImagePalette | null;
+        dimensions: SanityImageDimensions | null;
+        exif: null;
+      } | null;
     } | null;
-    people: Array<{
-      name: string | null;
-    }> | null;
   } | null;
-}>;
-
-// Source: ../frontend/src/sanity/queries.ts
-// Variable: ADMIN_ALL_PHOTOS_QUERY
-// Query: *[_type == "photo"] | order(associations.capturedDate desc) {    _id,    _type,    image,    "slug": slug.current,    context {      caption,      narrative,      intent,      isPublic,      isSensitive    },    associations {      capturedDate,      location->{ name, city },      people[]->{ name }    }  }
-export type ADMIN_ALL_PHOTOS_QUERY_RESULT = Array<{
-  _id: string;
-  _type: "photo";
-  image: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  } | null;
-  slug: string | null;
   context: {
     caption: string | null;
     narrative: string | null;
@@ -417,23 +341,93 @@ export type ADMIN_ALL_PHOTOS_QUERY_RESULT = Array<{
     isSensitive: boolean | null;
   } | null;
   associations: {
-    capturedDate: string | null;
-    location: {
-      name: string | null;
-      city: string | null;
-    } | null;
-    people: Array<{
-      name: string | null;
-    }> | null;
-  } | null;
+    dateConfig: null;
+    location: null;
+    people: null;
+    tags: null;
+  };
 }>;
+
+// Source: ../frontend/src/sanity/queries.ts
+// Variable: PERSON_BY_SLUG_QUERY
+// Query: *[_type == "person" && slug.current == $slug][0]{  _id,  name,  "slug": slug.current,  image,  roles,  bio,  connections,  "associatedPhotos": *[_type == "photo" && references(^._id) && context.isPublic == true]{      _id,  "slug": slug.current,  image { asset->{ _id, metadata { lqip, palette, dimensions, exif } } },  context { caption, narrative, intent, isPublic, isSensitive },  "associations": {    "dateConfig": years[0]->{ title }, // Mapping reference to 'year' schema    "location": locations[0]->{ _id, name, city },    "people": people[]->{ _id, name, "slug": slug.current },    "tags": tags[]->{ _id, title, "slug": slug.current }  }  }}
+export type PERSON_BY_SLUG_QUERY_RESULT = {
+  _id: string;
+  name: string | null;
+  slug: string | null;
+  image: null;
+  roles: Array<string> | null;
+  bio: string | null;
+  connections: null;
+  associatedPhotos: Array<{
+    _id: string;
+    slug: string | null;
+    image: {
+      asset: {
+        _id: string;
+        metadata: {
+          lqip: string | null;
+          palette: SanityImagePalette | null;
+          dimensions: SanityImageDimensions | null;
+          exif: null;
+        } | null;
+      } | null;
+    } | null;
+    context: {
+      caption: string | null;
+      narrative: string | null;
+      intent: "editorial" | "personal" | "portfolio" | "social" | "work" | null;
+      isPublic: boolean | null;
+      isSensitive: boolean | null;
+    } | null;
+    associations: {
+      dateConfig: null;
+      location: null;
+      people: null;
+      tags: null;
+    };
+  }>;
+} | null;
+
+// Source: ../frontend/src/sanity/queries.ts
+// Variable: INDIVIDUAL_PHOTO_QUERY
+// Query: *[_type == "photo" && slug.current == $slug][0] {      _id,  "slug": slug.current,  image { asset->{ _id, metadata { lqip, palette, dimensions, exif } } },  context { caption, narrative, intent, isPublic, isSensitive },  "associations": {    "dateConfig": years[0]->{ title }, // Mapping reference to 'year' schema    "location": locations[0]->{ _id, name, city },    "people": people[]->{ _id, name, "slug": slug.current },    "tags": tags[]->{ _id, title, "slug": slug.current }  }  }
+export type INDIVIDUAL_PHOTO_QUERY_RESULT = {
+  _id: string;
+  slug: string | null;
+  image: {
+    asset: {
+      _id: string;
+      metadata: {
+        lqip: string | null;
+        palette: SanityImagePalette | null;
+        dimensions: SanityImageDimensions | null;
+        exif: null;
+      } | null;
+    } | null;
+  } | null;
+  context: {
+    caption: string | null;
+    narrative: string | null;
+    intent: "editorial" | "personal" | "portfolio" | "social" | "work" | null;
+    isPublic: boolean | null;
+    isSensitive: boolean | null;
+  } | null;
+  associations: {
+    dateConfig: null;
+    location: null;
+    people: null;
+    tags: null;
+  };
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "photo" && slug.current == $slug][0] {\n  ...,\n  "slug": slug.current,\n  "metadata": image.asset->metadata {\n    exif,\n    palette,\n    dimensions,\n    lqip\n  },\n  context {\n    narrative,\n    caption,\n    intent,\n    isPublic,\n    isSensitive\n  },\n  associations {\n    capturedDate,\n    location->{ name, city, gps },\n    tags[]->{ title, "slug": slug.current },\n    people[]->{ name, "slug": slug.current, image }\n  }\n}': INDIVIDUAL_PHOTO_QUERY_RESULT;
-    '*[_type == "photo" && context.isPublic == true && context.isSensitive != true] | order(associations.capturedDate desc) {\n  _id,\n  image,\n  "slug": slug.current,\n  context {\n    narrative,\n    caption,\n    intent\n  },\n  associations {\n    capturedDate,\n    location->{ name, city },\n    people[]->{ name }\n  }\n}': PUBLIC_PHOTOS_QUERY_RESULT;
-    '*[_type == "photo"] | order(associations.capturedDate desc) {\n    _id,\n    _type,\n    image,\n    "slug": slug.current,\n    context {\n      caption,\n      narrative,\n      intent,\n      isPublic,\n      isSensitive\n    },\n    associations {\n      capturedDate,\n      location->{ name, city },\n      people[]->{ name }\n    }\n  }': ADMIN_ALL_PHOTOS_QUERY_RESULT;
+    '*[_type == "adminProfile"][0]{\n  userHandle,\n  systemRole,\n  bio,\n  socialLinks,\n  "identity": idenity->{\n    name,\n    image,\n    roles,\n    bio,\n    connections\n  }\n}': ADMIN_QUERY_RESULT;
+    '\n  *[_type == "photo" && context.isPublic == true && context.isSensitive != true] \n  | order(_createdAt desc) {\n    \n  _id,\n  "slug": slug.current,\n  image { asset->{ _id, metadata { lqip, palette, dimensions, exif } } },\n  context { caption, narrative, intent, isPublic, isSensitive },\n  "associations": {\n    "dateConfig": years[0]->{ title }, // Mapping reference to \'year\' schema\n    "location": locations[0]->{ _id, name, city },\n    "people": people[]->{ _id, name, "slug": slug.current },\n    "tags": tags[]->{ _id, title, "slug": slug.current }\n  }\n\n  }\n': PUBLIC_PHOTOS_QUERY_RESULT;
+    '*[_type == "person" && slug.current == $slug][0]{\n  _id,\n  name,\n  "slug": slug.current,\n  image,\n  roles,\n  bio,\n  connections,\n  "associatedPhotos": *[_type == "photo" && references(^._id) && context.isPublic == true]{\n    \n  _id,\n  "slug": slug.current,\n  image { asset->{ _id, metadata { lqip, palette, dimensions, exif } } },\n  context { caption, narrative, intent, isPublic, isSensitive },\n  "associations": {\n    "dateConfig": years[0]->{ title }, // Mapping reference to \'year\' schema\n    "location": locations[0]->{ _id, name, city },\n    "people": people[]->{ _id, name, "slug": slug.current },\n    "tags": tags[]->{ _id, title, "slug": slug.current }\n  }\n\n  }\n}': PERSON_BY_SLUG_QUERY_RESULT;
+    '\n  *[_type == "photo" && slug.current == $slug][0] {\n    \n  _id,\n  "slug": slug.current,\n  image { asset->{ _id, metadata { lqip, palette, dimensions, exif } } },\n  context { caption, narrative, intent, isPublic, isSensitive },\n  "associations": {\n    "dateConfig": years[0]->{ title }, // Mapping reference to \'year\' schema\n    "location": locations[0]->{ _id, name, city },\n    "people": people[]->{ _id, name, "slug": slug.current },\n    "tags": tags[]->{ _id, title, "slug": slug.current }\n  }\n\n  }\n': INDIVIDUAL_PHOTO_QUERY_RESULT;
   }
 }

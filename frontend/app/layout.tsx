@@ -32,8 +32,16 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <ClerkProvider appearance={{ baseTheme: dark }}>
-      <html lang="en" className={`dark ${geistSans.variable} ${geistMono.variable}`}>
-        <body className="bg-black text-white antialiased selection:bg-white selection:text-black">
+      {/* Added suppressHydrationWarning to html and body to handle extension attribute injection */}
+      <html 
+        lang="en" 
+        className={`dark ${geistSans.variable} ${geistMono.variable}`} 
+        suppressHydrationWarning
+      >
+        <body 
+          className="bg-black text-white antialiased selection:bg-white selection:text-black"
+          suppressHydrationWarning
+        >
           <ArchivalHeader />
           {/* Main is the shell, children provide the page specific structure */}
           {children}

@@ -1,16 +1,16 @@
 
 # PROJECT MANIFEST: SSS-MONOREPO
-**Last Sync:** 3/25/2026, 5:38:48 PM | **Branch:** main
+**Last Sync:** 3/25/2026, 6:13:48 PM | **Branch:** main
 
 ## 🎨 Design System & Assets
 - **Aesthetic:** Tabloid-Noir / Conspiracy Map
 - **Palette:** Black (#000000), Newsprint (#F2F2F2), Archive Red (#FF3E00)
-- **Assets:** Ripped paper vectors, tabloid frames, and conspiracy map overlays available in /static.
 
-## 🧠 Database Intelligence (Sanity)
+## 🧠 Database Intelligence
 - **Active Schemas:** gallery, location, logType, person, photo, photoCaption, tag
-- **AI Assist:** Enabled on Photo Narrative/Caption fields.
-- **Filenames:** Universal matching enforced via slug logic (Source: originalFilename).
+- **Plugins:** Media (Asset Mgmt), Color-Input, Graph-View, AI Assist
+- **Modular Tools:** portableText (Noir-Rich-Text)
+- **Filenames:** Universal matching via originalFilename slug logic.
 
 ## 📂 Directory Map
 ```text
@@ -40,6 +40,7 @@ frontend/app/sign-up/[[...sign-up]]/page.tsx
 frontend/components/ArchivalHeader.tsx
 frontend/components/MediaCard.tsx
 frontend/components/PhotoView.tsx
+frontend/components/TabloidFrame.tsx
 frontend/components/ToggleButton.tsx
 frontend/eslint.config.mjs
 frontend/next.config.ts
@@ -55,6 +56,7 @@ npm
 package-lock.json
 package.json
 studio/.gitignore
+studio/components/DashboardTool.tsx
 studio/eslint.config.mjs
 studio/output.txt
 studio/package.json
@@ -76,10 +78,3 @@ studio/tsconfig.json
 sync-context.mjs
 
 ```
-
-## 📝 Recent Activity
-- Progress Update (ca5af7c)
-- feat: align archival photo deep-dive and fix clerk deprecated props (780e79f)
-- fix: remove deprecated clerk prop to satisfy build logs (35769b4)
-- Build: Finalize hybrid path architecture and resolve Clerk/Sanity imports (995ade8)
-- refactor: merge studio into unified monorepo (c36abd4)

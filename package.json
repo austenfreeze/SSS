@@ -2,16 +2,17 @@
   "name": "sss-monorepo",
   "private": true,
   "scripts": {
-    "sync": "npm run typegen --workspace=studio",
-    "deploy:all": "npm run sync && npm run deploy --workspace=studio -- --verbose",
+    "sync": "node sync-context.mjs",
+    "log-session": "node update-logs.mjs",
     "dev": "concurrently \"npm run dev --workspace=frontend\" \"npm run dev --workspace=studio\"",
     "build": "npm run build --workspaces",
     "install-all": "npm install",
     "studio:dev": "npm run dev --workspace=studio",
     "typegen": "npm run extract --workspace=studio && npm run typegen --workspace=studio",
     "studio:deploy": "npm run typegen && npm run deploy --workspace=studio -- --verbose",
-  "sync": "node sync-context.mjs",
-  "log": "npm run sync && git add . && git commit -m \"Progress Update\" && echo Progress documented and saved."
+    "deploy:all": "npm run sync && npm run deploy --workspace=studio -- --verbose",
+    "log": "npm run sync && git add . && git commit -m \"Progress Update\" && echo Progress documented and saved.",
+    "archive-all": "npm run sync && npm run log-session && npm run studio:deploy && git add . && git commit -m 'Archival Sync & Deploy' && git push"
   },
   "workspaces": [
     "studio",
@@ -22,9 +23,16 @@
     "react-dom": "19.2.3"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "@sanity/cli": "^6.3.1",
+    "concurrently": "^8.2.2",
+    "sanity": "^5.19.0"
   },
   "dependencies": {
+    "@sanity/color-input": "^6.0.4",
+    "aframe": "^1.7.1",
+    "cursor-agent": "^1.0.3",
+    "sanity-plugin-graph-view": "^5.0.5",
+    "sanity-plugin-media": "^4.1.1",
     "styled-components": "^6.3.11"
   }
 }
