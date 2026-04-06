@@ -1,4 +1,8 @@
 import type { NextConfig } from "next";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -13,6 +17,10 @@ const nextConfig: NextConfig = {
   },
   // Helps Turbopack handle the Sanity library overhead
   transpilePackages: ["next-sanity", "@sanity/image-url"],
+  // Set Turbopack root for monorepo workspace
+  turbopack: {
+    root: __dirname,
+  },
 };
 
 export default nextConfig;
