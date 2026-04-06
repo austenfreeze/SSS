@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
   },
   transpilePackages: ["next-sanity", "@sanity/image-url"],
   allowedDevOrigins: ["*.vercel.run"],
+  turbopack: {
+    root: "/vercel/share/v0-project",
+  },
 };
 
 export default nextConfig;
