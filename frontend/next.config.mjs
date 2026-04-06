@@ -1,6 +1,5 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
   images: {
     unoptimized: process.env.NODE_ENV === "development",
@@ -14,7 +13,7 @@ const nextConfig: NextConfig = {
   transpilePackages: ["next-sanity", "@sanity/image-url"],
   allowedDevOrigins: ["*.vercel.run"],
   turbopack: {
-    root: "/vercel/share/v0-project",
+    root: "..",
   },
 };
 
