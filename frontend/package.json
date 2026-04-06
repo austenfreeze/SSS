@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "typegen": "sanity typegen generate",
     "start": "next start",
     "lint": "eslint"
   },
